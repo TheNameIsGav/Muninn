@@ -1,25 +1,36 @@
 //Mongo Database Stuff
-var mongo = require('mongodb');
-var MongoClient = mongo.MongoClient;
-var url = "mongodb://localhost:27017/mydb";
+var {MongoClient} = require('mongodb');
+require('dotenv').config();
 
+async function main(){
+  /**
+   * Connection URI. Update <username>, <password>, and <your-cluster-url> to reflect your cluster.
+   * See https://docs.mongodb.com/ecosystem/drivers/node/ for more details
+   */
+  var test =  "mongodb+srv://" + process.env.USER_NAME + ":" + process.env.USER_PASSWORD + "@muninn.m3vbg.mongodb.net/test?retryWrites=true&w=majority";
+  //console.log(test)
 
-//Script to create a new database, and then add a file to it.
-//I am unsure if it overwrites the database every time I run it...
-MongoClient.connect(url, function(err, db) {
-  if (err) throw err;
-  console.log("Database created!");
+  const uri = "mongodb+srv://" + process.env.USER_NAME + ":" + process.env.USER_PASSWORD + "@muninn.m3vbg.mongodb.net/test?retryWrites=true&w=majority";
+  const client = new MongoClient(uri)
   
-  var dbo = db.db("mydb");
-  dbo.createCollection("customers", function(err, res){
-      if(err) throw err;
-      console.log("Collection Created!");
-  });
+  
+  try {
+    await client.connect();
+    await listDatabases(client);
+  } catch (e) {
+    console.error(e);
+  }
+  
+  finally {
+    await client.close();
+  }
+}
 
-  var myobj = { name : "Company Inc", address: "Highway 37"};
-  dbo.collection("customers").insertOne(myobj, function(err, res) {
-    if(err) throw err;
-    console.log("1 document inserted");
-    db.close();
-  });
-});
+async function listDatabases(client){
+  databasesList = await client.db().admin().listDatabases();
+
+  console.log("Databases: ");
+  databasesList.databases.forEach(db => console.log(` - ${db.name}`));
+}
+
+main().catch(console.error);
