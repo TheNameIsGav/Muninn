@@ -1,0 +1,2 @@
+Step 1: Install NodeJS and all assocatied packages from their website
+Step 2: Install local MongoDB from their website - make sure you uncheck installing mongoCompass, and change the data directory to wherever our project is on your local machine
