@@ -7,10 +7,12 @@ if (port == null || port == "") {
   port = 8000;
 }
 
-http.createServer(function (req, res) {
+let app = http.createServer(function (req, res) {
   res.writeHead(200, {'Content-Type': 'text/html'});
   res.end('Deployed To Heroku!');
-}).listen(port);
+})
+
+app.listen(port);
 
 
 //Mongo Database Stuff
