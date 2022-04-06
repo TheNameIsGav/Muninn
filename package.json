@@ -2,7 +2,7 @@
 
   "scripts": {
 
-    "server": "node Server/server.js",
+    "server": "node server.js",
 
     "database": "node Database/database.js"
 
