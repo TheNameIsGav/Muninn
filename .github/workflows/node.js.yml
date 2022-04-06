@@ -42,5 +42,5 @@ jobs:
       run: | 
         touch .env
         echo USER_NAME=$NAME >> .env
-        echo USER_PASSWPRD=$PASSWORD >> .env
+        echo USER_PASSWORD=$PASSWORD >> .env
         npm run databaseTest
