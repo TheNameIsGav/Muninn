@@ -1,15 +1,22 @@
 {
 
   "scripts": {
-    "serverTest": "node server.js",
-    "databaseTest" : "node database.js"
-  },
-  
-  "dependencies": {
-    "dotenv": "^16.0.0",
-    "mongodb": "^4.4.1"
-  }
-  
-}
 
+    "serverTest": "node server.js",
+
+    "databaseTest": "node database.js"
+
+  },
+
+  "dependencies": {
+
+    "@actions/core": "^1.6.0",
+
+    "dotenv": "^16.0.0",
+
+    "mongodb": "^4.4.1"
+
+  }
+
+}
 

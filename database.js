@@ -1,3 +1,5 @@
+const core = require('@actions/core');
+
 //Mongo Database Stuff
 var {MongoClient} = require('mongodb');
 require('dotenv').config();
@@ -9,7 +11,7 @@ async function main(){
    */
 
     if(process.env.USER_NAME == undefined || process.env.USER_PASSWORD == undefined){
-        return -1;
+        core.setFailed("Failed to validate user credentials");
     }
 
     console.log(process.env.USER_NAME);
@@ -22,8 +24,7 @@ async function main(){
         await client.connect();
         await listDatabases(client);
     } catch (e) {
-        console.error(e);
-        return -1;
+        core.setFailed(e);
     }
 
     finally {

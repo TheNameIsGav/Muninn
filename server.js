@@ -1,3 +1,4 @@
+const core = require('@actions/core');
 
 //NodeJs Server Setup
 var http = require('http');
