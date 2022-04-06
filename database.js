@@ -8,8 +8,8 @@ async function main(){
    * See https://docs.mongodb.com/ecosystem/drivers/node/ for more details
    */
 
-    if(process.env.USER_NAME == "" || process.env.USER_PASSWORD == ""){
-        return;
+    if(process.env.USER_NAME == undefined || process.env.USER_PASSWORD == undefined){
+        return -1;
     }
 
     console.log(process.env.USER_NAME);
@@ -18,12 +18,12 @@ async function main(){
     const uri = "mongodb+srv://" + process.env.USER_NAME + ":" + process.env.USER_PASSWORD + "@muninn.m3vbg.mongodb.net/test?retryWrites=true&w=majority";
     const client = new MongoClient(uri)
 
-
     try {
         await client.connect();
         await listDatabases(client);
     } catch (e) {
         console.error(e);
+        return -1;
     }
 
     finally {
@@ -38,4 +38,4 @@ async function listDatabases(client){
     databasesList.databases.forEach(db => console.log(` - ${db.name}`));
 }
 
-main().catch(console.error);
+main();
