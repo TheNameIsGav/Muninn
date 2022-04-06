@@ -40,5 +40,7 @@ jobs:
         NAME: '${{ secrets.USER_NAME }}'
         PASSWORD: '${{ secrets.USER_PASSWORD }}'
       run: | 
-        echo $NAME
+        touch .env
+        echo USER_NAME=$NAME >> .env
+        echo USER_PASSWPRD=$PASSWORD >> .env
         npm run databaseTest
