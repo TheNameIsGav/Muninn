@@ -31,7 +31,7 @@ jobs:
         PASSWORD: ${{ secrets.USER_PASSWORD }}
     - run: npm ci
     - run: npm run build --if-present
-    - run: npm config set USER_NAME=$NAME
-    - run: npm config set USER_PASSWORD=$PASSWORD
+    - run: npm config set USER_NAME=$NAME && npm config set USER_PASSWORD=$PASSWORD
+    - run: npm config get USER_NAME && npm config get USER_PASSWORD
     - run: npm run serverTest & sleep 5 && curl http://127.0.0.1:8000/
     - run: npm run databaseTest

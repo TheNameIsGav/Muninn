@@ -12,6 +12,9 @@ async function main(){
         return;
     }
 
+    console.log(process.env.USER_NAME);
+    console.log(process.env.USER_PASSWORD);
+
     const uri = "mongodb+srv://" + process.env.USER_NAME + ":" + process.env.USER_PASSWORD + "@muninn.m3vbg.mongodb.net/test?retryWrites=true&w=majority";
     const client = new MongoClient(uri)
 
