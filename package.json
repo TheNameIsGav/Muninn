@@ -2,9 +2,9 @@
 
   "scripts": {
 
-    "serverTest": "node server.js",
+    "server": "node Server/server.js",
 
-    "databaseTest": "node database.js"
+    "database": "node Database/database.js"
 
   },
 
