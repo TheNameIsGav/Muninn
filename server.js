@@ -10,7 +10,7 @@ if (port == null || port == "") {
 
 let app = http.createServer(function (req, res) {
   res.writeHead(200, {'Content-Type': 'text/html'});
-  res.end('Deployed To Heroku! With Continous Integration! And Deploying! Woo!');
+  res.end('Class said subjugation');
 })
 
 app.listen(port);
