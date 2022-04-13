@@ -24,6 +24,9 @@ Muninn is death.
     > ```npm install mongoDB```
 3. Run `npm install dotenv` within your command line.
     > ```npm install dotenv```
+
+>TO DO - user needs to install ejs package as well
+
 4. Create an `.env` file in the root directory and add the following code: 
     ``` 
         USER_NAME=<insert database account username>

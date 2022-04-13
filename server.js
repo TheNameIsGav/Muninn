@@ -1,16 +1,22 @@
 const core = require('@actions/core');
+const express = require('express');
+const path = require('path');
 
-//NodeJs Server Setup
-var http = require('http');
+//NodeJS Server Setup
+const app = express();
 
 let port = process.env.PORT;
 if (port == null || port == "") {
   port = 8000;
 }
 
-let app = http.createServer(function (req, res) {
-  res.writeHead(200, {'Content-Type': 'text/html'});
-  res.end('Deployed To Heroku! With Continous Integration! And Deploying! Woo!');
-})
+app.set("view engine", "ejs");
+app.use(express.static(path.join(__dirname, "public")));
 
-app.listen(port);
+app.get('/', (req, res) => {
+  res.render("index");
+});
+
+app.listen(port, ()=>{
+  console.log("listening at http://localhost:/" + port)
+})
