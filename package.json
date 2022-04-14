@@ -6,7 +6,9 @@
 
     "database": "node Database/database.js",
 
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+
+    "postTest": "node TestScripts/test.js"
 
   },
 
@@ -24,7 +26,9 @@
 
     "mongoose": "^6.2.11",
 
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+
+    "request": "^2.88.2"
 
   }
 

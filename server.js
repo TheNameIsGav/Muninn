@@ -1,8 +1,11 @@
 const core = require('@actions/core');
 const express = require('express');
-const path = require('path');
-require('./Database/database.js')
 const mongoose = require('mongoose');
+const Router = require("./routes");
+const path = require('path');
+require('dotenv').config();
+//const dbFile = require('./Database/database.js');
+
 
 //NodeJS Server Setup
 const app = express();
@@ -14,17 +17,22 @@ if (port == null || port == "") {
 
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
+app.use(express.json());
+app.use(Router);
 
-app.get('/', (req, res) => {
-  res.render("index");
-});
+const uri = "mongodb+srv://" + process.env.USER_NAME + ":" + process.env.USER_PASSWORD + "@muninn.m3vbg.mongodb.net/test?retryWrites=true&w=majority";
+//https://www.section.io/engineering-education/nodejs-mongoosejs-mongodb/
 
+//Connects to the server
+mongoose.connect(uri);
+
+//Tests to see if connection successful
 mongoose.connection.on('connected', () => {
   console.log('connected');
 })
 
+//Checks to see if it fails
 mongoose.connection.on('error', function (err) {
-  console.log("Failed to connect with error " + err);
   core.setFailed("Failed connection " + err);
 })
 

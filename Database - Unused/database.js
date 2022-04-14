@@ -5,27 +5,17 @@ const mongoose = require('mongoose');
 var {MongoClient} = require('mongodb');
 require('dotenv').config();
 
-
 const uri = "mongodb+srv://" + process.env.USER_NAME + ":" + process.env.USER_PASSWORD + "@muninn.m3vbg.mongodb.net/test?retryWrites=true&w=majority";
 
-async function main(){
-    try{    
-        await mongoose.connect(uri);
-    } catch (e){
-        console.log("Caught error " + e);
-    }
-
-    finally {
-        
-    }
+try{    
+    mongoose.connect(uri);
+    let conn = mongoose.connection;
+    module.exports = conn;
+} catch (e){
+    console.log("Caught error " + e);
 }
 
-main();
-
-
-
-
-
+//From what I can tell this database.js file should be used as the mongoose Schema
 
 // async function main(){
 //   /**
