@@ -4,8 +4,7 @@ const mongoose = require('mongoose');
 const Router = require("./routes");
 const path = require('path');
 require('dotenv').config();
-//const dbFile = require('./Database/database.js');
-
+const bodyParser = require("body-parser");
 
 //NodeJS Server Setup
 const app = express();
@@ -18,7 +17,9 @@ if (port == null || port == "") {
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.json());
-app.use(Router);
+app.use("/", Router);
+
+
 
 const uri = "mongodb+srv://" + process.env.USER_NAME + ":" + process.env.USER_PASSWORD + "@muninn.m3vbg.mongodb.net/test?retryWrites=true&w=majority";
 //https://www.section.io/engineering-education/nodejs-mongoosejs-mongodb/
