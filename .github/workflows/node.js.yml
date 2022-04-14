@@ -5,9 +5,9 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ Production ]
+    branches: [ Production , Development]
   pull_request:
-    branches: [ Production ]
+    branches: [ Production , Development]
 
 jobs:
   build:
@@ -31,11 +31,7 @@ jobs:
     - run: npm run build --if-present
 
 
-    - name: Tests Server
-      run: npm run server & sleep 5 && curl http://127.0.0.1:8000/
-
-
-    - name: Tests Database
+    - name: Tests Server & Database Connectivity
       env:
         NAME: '${{ secrets.USER_NAME }}'
         PASSWORD: '${{ secrets.USER_PASSWORD }}'
@@ -43,4 +39,4 @@ jobs:
         touch .env
         echo USER_NAME=$NAME >> .env
         echo USER_PASSWORD=$PASSWORD >> .env
-        npm run database
+        npm run server & sleep 5 && curl http://127.0.0.1:8000/     
