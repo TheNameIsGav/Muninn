@@ -8,10 +8,17 @@ const GameSchema = new mongoose.Schema({
         type: Number, 
         default: 0,
     },
+    id: {
+        type: Number
+    },
 });
 
 const ReviewSchema = new mongoose.Schema({
     userID : {
+        type: Number,
+        required: true
+    },
+    gameID: {
         type: Number,
         required: true
     },
@@ -28,4 +35,4 @@ const ReviewSchema = new mongoose.Schema({
 const Game = mongoose.model("Game", GameSchema);
 const Review = mongoose.model("Review", ReviewSchema)
 
-module.exports = Game, Review;
+module.exports = {Game: Game, Review: Review};
