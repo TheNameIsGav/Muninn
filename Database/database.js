@@ -14,11 +14,26 @@ async function main(){
         core.setFailed("Failed to validate user credentials");
     }
 
-    console.log(process.env.USER_NAME);
-    console.log(process.env.USER_PASSWORD);
 
     const uri = "mongodb+srv://" + process.env.USER_NAME + ":" + process.env.USER_PASSWORD + "@muninn.m3vbg.mongodb.net/test?retryWrites=true&w=majority";
     const client = new MongoClient(uri)
+
+                                    //Database Name         Collection Name
+    const gameCollection = client.db("testData").collection("games");
+
+    MongoClient.connect(uri, function(err, db) {
+        if (err) throw err;
+        var myObj = {_id: 154, name: "Animal Crossing", tags: ["MMO", "RPG", "HORROR"], ratings: 5, reviews: ["1", "2", "3"]}
+        // gameCollection.insertOne(myObj, function(err, res) {
+        //     if(err) throw err;
+        //     console.log("1 Document inserted");
+        // })
+
+        gameCollection.find({_id: 154}).toArray(function(err, result){
+            if(err) throw err;
+            console.log(result);
+        })
+    })
 
     try {
         await client.connect();
