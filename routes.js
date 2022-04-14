@@ -1,7 +1,8 @@
 const express = require('express');
 const req = require('express/lib/request');
 const bodyParser = require("body-parser");
-const Model = require('./models.js')
+const Game = require('./Models/Game.js');
+const Review = require('./Models/Review.js');
 const app = express();
 
 app.use(bodyParser.urlencoded({extended: false}));
@@ -13,11 +14,11 @@ app.get('/', (req, res) => {
 
 app.post('/add_game', (req, res) => {
   var name = req.body.name;
-  var rating = req.body.rating;
-  console.log("Title of the game is: " + name + " and the rating is " + rating);
+  var description = req.body.description;
+  console.log("Title of the game is: " + name + " and the description is " + description);
 
 
-  var game = new Model({ name: name, rating : rating})
+  var game = new Game({ name: name, description : description})
   game.save(function (err, game){
     if (err) return console.error(err);
     console.log(game.name + " saved");
@@ -26,7 +27,7 @@ app.post('/add_game', (req, res) => {
 });
 
 app.get("/games", async (request, response) => {
-  const game = await Model.find({});
+  const game = await Game.find({});
 
   try {
     response.send(game);

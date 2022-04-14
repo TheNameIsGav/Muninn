@@ -3,7 +3,7 @@ postData = {},
 postConfig = {},
 postSuccessHandler = null;
 
-postData = {name : "Animal Crossing", rating : "5"}
+postData = {name : "Animal Crossing", description : "Animals cross"}
 
 postConfig = {
     url: 'http://localhost:8000/add_game',
