@@ -20,11 +20,13 @@ const GameSchema = new Schema ({
         data: Buffer,
         contentType: String
     },
-    tags: [{
-        type: String
-    }],
+    tags: 
+       [String],
     platforms: [{
         type: String
+    }],
+    reviews: [{
+        type: Schema.Types.ObjectId, ref: 'Review'
     }]
 })
 

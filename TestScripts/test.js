@@ -5,6 +5,7 @@ postSuccessHandler = null;
 
 postData = {name : "Animal Crossing", description : "Animals cross"}
 
+
 postConfig = {
     url: 'http://localhost:8000/add_game',
     form: postData

@@ -3,9 +3,12 @@ const { Schema } = mongoose;
 
 
 const ReviewSchema = new Schema({
-    userID : {
-        type: Number,
+    user : {
+        type: Schema.Types.ObjectId, ref: 'User',
         required: true
+    },
+    game: {
+        type: Schema.Types.ObjectId, ref: 'Game'
     },
     desc: {
         type: String,
@@ -14,7 +17,8 @@ const ReviewSchema = new Schema({
     rating: {
         type: Number,
         required: true
-    },
+    }
+
 })
 
 const Review = mongoose.model("Review", ReviewSchema)
