@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const Game = require('./Models/Game.js');
 const Review = require('./Models/Review.js');
 const User = require('./Models/User.js');
+const fs = require('fs');
 const app = express();
 
 app.use(bodyParser.urlencoded({extended: true}));
@@ -14,30 +15,36 @@ app.get('/', (req, res) => {
   });
 
 app.post('/add_game', (req, res) => {
-  var name = req.body.name;
+  var title = req.body.title;
   var description = req.body.description;
   var publisher = req.body.publisher;
   var tags = req.body.tags;
   var platforms = req.body.platforms; 
-  console.log("Title of the game is: " + name + " and the description is " + description);
+  //var artData = fs.readFileSync(req.body.imgPath);
+ //var artContentType = 'image/png';
+
+  console.log("Title of the game is: " + title + " and the description is " + description);
   console.log("Platforms: " + req.body.platforms);
   console.log("Tags: " + req.body.tags);
 
 
   var game = new Game({
-    name: name, 
+    title: title, 
     description : description,
     publisher: publisher,
     tags : tags,
     platforms : platforms
   })
   
+  game.art.data = fs.readFileSync(req.body.imgPath);
+  game.art.contenType = 'image/png';
   
 
   game.save(function (err, game){
     if (err) return console.error(err);
-    console.log(game.name + " saved");
+    console.log(game.title + " saved");
   })
+  console.log(game.art.data);
 
   res.end("yes");
 
