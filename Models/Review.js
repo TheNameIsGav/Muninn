@@ -3,9 +3,12 @@ const { Schema } = mongoose;
 
 
 const ReviewSchema = new Schema({
-    user : {
+    userId : {
         type: Schema.Types.ObjectId, ref: 'User',
         required: true
+    },
+    userName : {
+        type: String
     },
     game: {
         type: Schema.Types.ObjectId, ref: 'Game'
