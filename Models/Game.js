@@ -20,8 +20,9 @@ const GameSchema = new Schema ({
         data: Buffer,
         contentType: String
     },
-    tags: 
-       [String],
+    tags: [{
+        type: String,
+    }],
     platforms: [{
         type: String
     }],
