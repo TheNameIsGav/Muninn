@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { Button } from '../Button';
+import { SearchBar } from '../Search';
 import { MenuItems } from './MenuItems'
 import './Navbar.css'
 
@@ -15,8 +16,7 @@ class Navbar extends Component {
             <div>
                 <div className='NavbarItems'>
                     <img className='navbar-logo' alt= "our Logo" src = "muninnLogo.png"/>
-                    <input type="text" />
-                    <button> Submit </button>
+                    {/* <SearchBar> Chaos </SearchBar> */}
                         {MenuItems.map((item, index) => {
                             return (
                                 <React.Fragment>
