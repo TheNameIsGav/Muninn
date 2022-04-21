@@ -2,19 +2,30 @@ import React from 'react';
 import './Search.css'
 
 
-export const SearchBar = ({}) => {
+function getValue() {
+    console.log('hello world');
+}
+
+
+
+export const SearchBar = () => {
     return(
         <React.Fragment>
-            <div className="search-bar">
-                <form action=''>
-                    <div>
-                        <label htmlFor=''>
-                        <input type="text" placeholder="Search.." onChange={ this.getValue}/>
-                    </label>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+
+            <form class="example" action="action_page.php">
+            <input type="text" name="search"/>
+            <button type="submit"><i class="fa fa-search"></i></button>
+            </form>
+            
+            
+            {/* <form action="">
+                <div>
+                    <div className="search-bar">
+                        <input type="text"/>
                     </div>
-                
-                </form>
-            </div>
+                </div>
+            </form> */}
         </React.Fragment>
     )
 }

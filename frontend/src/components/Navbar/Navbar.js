@@ -16,7 +16,7 @@ class Navbar extends Component {
             <div>
                 <div className='NavbarItems'>
                     <img className='navbar-logo' alt= "our Logo" src = "muninnLogo.png"/>
-                    {/* <SearchBar> Chaos </SearchBar> */}
+                    <SearchBar> </SearchBar>
                         {MenuItems.map((item, index) => {
                             return (
                                 <React.Fragment>
