@@ -1,5 +1,5 @@
 :root{
-    --primary: #3acbf7;
+    --primary:  #997434 ;
 }
 
 .btn {
@@ -8,6 +8,7 @@
     outline: none;
     border: none;
     cursor: pointer;
+    margin: 10px 10px;
 }
 
 .btn:hover {
