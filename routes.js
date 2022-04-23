@@ -14,6 +14,7 @@ app.get('/', (req, res) => {
     res.render("index");
   });
 
+//adds game to database
 app.post('/add_game', (req, res) => {
   var title = req.body.title;
   var description = req.body.description;
@@ -32,7 +33,7 @@ app.post('/add_game', (req, res) => {
     title: title, 
     description : description,
     publisher: publisher,
-    tags : tags,
+    tags : Array.isArray(tags) ? tags : [tags],
     platforms : platforms
   })
   
@@ -44,18 +45,18 @@ app.post('/add_game', (req, res) => {
     if (err) return console.error(err);
     console.log(game.title + " saved");
   })
-  console.log(game.art.data);
 
   res.end("yes");
 
 });
 
-app.get("/games", async (request, response) => {
-  const game = await Game.find({});
+//sends all of the games in the database
+app.get("/browse_games", async (request, response) => {
+  const games = await Game.find({});
   
   try {
-    response.send(game);
-    console.log(game);
+    response.send(games);
+    console.log(games);
   } catch (error) {
     response.status(500).send(error);
   }
@@ -93,9 +94,8 @@ app.post('/add_review', (req, res) => {
   console.log("Email: " + email);
  
   var review = new Review({
-    user: userId,
-    //need to figure out password stuff 
-    game : gameId,
+    userId: userId,
+    gameId : gameId,
     desc: desc,
     rating : rating
   })
@@ -108,5 +108,20 @@ app.post('/add_review', (req, res) => {
   })
   res.end("yes");
 });
+
+//assumes req.usernameSearch has the username being searched for 
+app.get('/search_users', (req, res) => {
+  User.find({username : req.usernameSearch}, (error, data) => {
+    if(error) throw error;
+    if(data) {
+      res.json(result)
+    } else {
+      res.send(JSON.stringify({
+        error : 'Error'
+      }))
+    }
+    
+  })
+})
 
 module.exports = app;
