@@ -32,8 +32,8 @@ app.get('/', (req, res) => {
     res.render("index");
   });
 
-//Add a user-defined game to the database
-app.post('/add_game', async (req, res) => {
+//adds game to database
+app.post('/add_game', (req, res) => {
   var title = req.body.title;
   var description = req.body.description;
   var publisher = req.body.publisher;
@@ -44,7 +44,7 @@ app.post('/add_game', async (req, res) => {
     title: title, 
     description : description,
     publisher: publisher,
-    tags : tags,
+    tags : Array.isArray(tags) ? tags : [tags],
     platforms : platforms
   })
   
@@ -56,16 +56,27 @@ app.post('/add_game', async (req, res) => {
   var reg = new RegExp(search, 'i')
   var value = await Game.findOne({title: {$regex: reg}}).exec()
 
-  if(value == null){
+  game.save(function (err, game){
+    if (err) return console.error(err);
+    console.log(game.title + " saved");
+  })
 
     game.save(function (err, game){
       if (err) return console.error(err);
       console.log(game.title + " saved");
     })
 
-    res.end("saved game to database");
-  } else {
-    res.end("We found a game similar to your search term of " + title + " [" + value.id + "]")
+});
+
+//sends all of the games in the database
+app.get("/browse_games", async (request, response) => {
+  const games = await Game.find({});
+  
+  try {
+    response.send(games);
+    console.log(games);
+  } catch (error) {
+    response.status(500).send(error);
   }
 });
 
@@ -103,9 +114,8 @@ app.post('/add_review', (req, res) => {
   console.log("Email: " + email);
  
   var review = new Review({
-    user: userId,
-    //need to figure out password stuff 
-    game : gameId,
+    userId: userId,
+    gameId : gameId,
     desc: desc,
     rating : rating
   })
@@ -119,40 +129,19 @@ app.post('/add_review', (req, res) => {
   res.end("yes");
 });
 
-
-//Search for a game with 'search_query' and return the json string of that game
-app.get('/search_game/:search_query', async (request, response) => {
-  //Original Author: Gabriel
-  var search = request.params.search_query.replace("_", " ");
-  search = escapeRegExp(search)
-
-  //Builds regex expression to search for similar names based on the query
-  var reg = new RegExp(search, 'i')
-  var matchingGames = JSON.stringify(await Game.findOne({title: {$regex: reg}}).exec());
-
-  response.send(matchingGames);
-});
-
-//Serve a list of games names to the frontend for searching through the database. 
-app.get('/serve_default_games', async (request, response) => {
-
-  var gamesComplexArray = await Game.find({}).select('title');
-
-  if(gamesComplexArray.length == 0){
-    console.log("we shouldn't have gotten here");
-    response.send("");
-  }
-
-  var gamesSimpleArray = [];
-
-  gamesComplexArray.forEach((x, i) => gamesSimpleArray.push(x.title));
-
-  var retText = JSON.stringify(gamesSimpleArray);
-
-  response.send(retText);
-});
-
+//assumes req.usernameSearch has the username being searched for 
+app.get('/search_users', (req, res) => {
+  User.find({username : req.usernameSearch}, (error, data) => {
+    if(error) throw error;
+    if(data) {
+      res.json(result)
+    } else {
+      res.send(JSON.stringify({
+        error : 'Error'
+      }))
+    }
+    
+  })
+})
 
 module.exports = app;
-
-//https://expressjs.com/en/guide/routing.html
