@@ -131,5 +131,4 @@ app.get('/search_game/:search_query', async (request, response) => {
 });
 
 module.exports = app;
-
 //remember to remind group to install do "npm i --s concurrently" and "cd frontned; npm install react"
