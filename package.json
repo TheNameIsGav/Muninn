@@ -8,7 +8,11 @@
 
     "fullstack": "concurrently \"npm run client\" \"npm run server\" ",
 
-    "install": "cd frontend && npm install"
+    "install": "cd frontend && npm install",
+
+    "client": "cd frontend && npm run start",
+
+    "fullstack": "concurrently \"npm run client\" \"npm run server\" "
 
   },
 

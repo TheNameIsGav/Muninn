@@ -270,3 +270,4 @@ app.get('/display_profile/:id', async(request, response) => {
 
 
 module.exports = app;
+//remember to remind group to install do "npm i --s concurrently" and "cd frontend; npm install react"
