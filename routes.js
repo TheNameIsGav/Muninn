@@ -10,6 +10,11 @@ const app = express();
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
+//https://stackoverflow.com/questions/3446170/escape-string-for-use-in-javascript-regex/6969486#6969486
+function escapeRegExp(string) {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
 app.get('/', (req, res) => {
     res.render("index");
   });
@@ -109,4 +114,22 @@ app.post('/add_review', (req, res) => {
   res.end("yes");
 });
 
+
+//https://expressjs.com/en/guide/routing.html
+
+//Usage: Append the search query to the "search_game" route and code will return json of closest matching game from database
+app.get('/search_game/:search_query', async (request, response) => {
+  var search = request.params.search_query.replace("_", " ");
+  search = escapeRegExp(search)
+  console.log(search)
+
+  //Builds regex expression to search for similar names based on the query
+  var reg = new RegExp(search, 'i')
+  var matchingGames = JSON.stringify(await Game.find({title: {$regex: reg}}).exec());
+
+  response.send(matchingGames);
+});
+
 module.exports = app;
+
+//remember to remind group to install do "npm i --s concurrently" and "cd frontned; npm install react"

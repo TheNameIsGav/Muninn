@@ -6,10 +6,13 @@
 
     "database": "node Database/database.js",
 
-    "start": "nodemon server.js",
+    "start": "node server.js",
 
-    "postTest": "node TestScripts/test.js"
+    "postTest": "node TestScripts/test.js",
 
+    "client" : "cd frontend && npm run start",
+
+    "fullstack" : "concurrently \"npm run client\" \"npm run server\" "
   },
 
   "dependencies": {

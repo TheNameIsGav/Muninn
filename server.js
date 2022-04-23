@@ -14,6 +14,13 @@ if (port == null || port == "") {
   port = 8000;
 }
 
+let environment = process.env.environment
+let database = "test";
+if(environment == "prod"){
+  database = "production"
+}
+
+
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.json());
@@ -21,7 +28,7 @@ app.use("/", Router);
 
 
 
-const uri = "mongodb+srv://" + process.env.USER_NAME + ":" + process.env.USER_PASSWORD + "@muninn.m3vbg.mongodb.net/test?retryWrites=true&w=majority";
+const uri = "mongodb+srv://" + process.env.USER_NAME + ":" + process.env.USER_PASSWORD + "@muninn.m3vbg.mongodb.net/"+ database + "?retryWrites=true&w=majority";
 //https://www.section.io/engineering-education/nodejs-mongoosejs-mongodb/
 
 //Connects to the server
@@ -29,7 +36,7 @@ mongoose.connect(uri);
 
 //Tests to see if connection successful
 mongoose.connection.on('connected', () => {
-  console.log('connected');
+  console.log("connected to " + database + " database");
 })
 
 //Checks to see if it fails
