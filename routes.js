@@ -124,4 +124,17 @@ app.get('/search_users', (req, res) => {
   })
 })
 
+app.get('/search_games', (req, res) => {
+  User.find({username : req.gameSearch}, (error, data) => {
+    if(error) throw error;
+    if(data) {
+      res.json(result)
+    } else {
+      res.send(JSON.stringify({
+        error : 'Error'
+      }))
+    }
+    
+  })
+})
 module.exports = app;
