@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import { Button } from '../Button';
+import Searchbar from '../Searchbar/Searchbar';
 import { MenuItems } from './MenuItems'
 import './Navbar.css'
 import './GameDisplay.css'
@@ -8,56 +9,13 @@ import Login from '../Login/Login';
 import Profile from '../Profile/Profile';
 
 class Navbar extends Component {
-
-    state = {
-        gameInfo: [],
-    }
-
-    //this is for the values within the searchbar
-    getValue = (event) => {
-        this.setState({ value: event.target.value })
-
-        console.log("event: ", event.target.value);
-    }
-
-
-    //this is for the onClick of submit
-    handleSubmit = (event) => {
-        event.preventDefault();
-        const value = this.state.value;
-
-        console.log("this is the value on submit: ", value);
-        this.componentDidMount();
-    }
-
-    componentDidMount = () => {
-        console.log("submit on click component did mount works")
-        const firstValue = 'http://localhost:8000/search_game/'
-        let searchedTerm = this.state.value
-        let fullURL = firstValue.concat(searchedTerm)
-        fetch(fullURL)
-            .then((res) => res.json())
-            .then((data) => {
-                this.setState({ gameInfo: data})
-            })
-            .catch(() => {
-                alert("game not found");
-            });
-    }
-
     render() {
         return(
             <>
             <Router>
                 <div className='NavbarItems'>
                     <img className='navbar-logo' alt= "our Logo" src = "muninnLogo.png"/>
-                    <form action="" className="example">
-                        <div className='searchbar'>
-                            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
-                            <input type="text" onChange={ this.getValue } name="search" />
-                            <button onClick={ this.handleSubmit } id="demo"><i className="fa fa-search"></i></button>
-                        </div>
-                    </form>
+                    <Searchbar></Searchbar>
                         {MenuItems.map((item, index) => {
                             return (
                                 <>
