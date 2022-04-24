@@ -2,26 +2,26 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import Navbar from './components/Navbar/Navbar';
+// import Navbar from './components/Navbar/Navbar';
 
-var request = require("request"); //needed for post request
+// var request = require("request"); //needed for post request
 
 ReactDOM.render(<App/>,
   document.getElementById('root')
 );
 
-var searchInformation = { searchTerm: Navbar.value}
+// var searchInformation = { searchTerm: Navbar.value}
 
-var postConfig = {
-  url: 'http://localhost:8000/search_game',
-  form: searchInformation
-}
+// var postConfig = {
+//   url: 'http://localhost:8000/search_game',
+//   form: searchInformation
+// }
 
-var postSuccessHandler = function (err, httpResponse, body) {
-  console.log('JSON response from the server: ' + body)
-}
+// var postSuccessHandler = function (err, httpResponse, body) {
+//   console.log('JSON response from the server: ' + body)
+// }
 
-request.post(postConfig, postSuccessHandler);
+// // request.post(postConfig, postSuccessHandler);
 
 
 // request({url:"http://localhost:8000/search_game/just dance"}, function(err, response, body) {
