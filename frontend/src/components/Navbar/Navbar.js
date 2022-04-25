@@ -1,29 +1,15 @@
-import React, {Component, useState} from 'react';
+import React, {Component} from 'react';
 import { Button } from '../Button';
-import Searchbar from '../Searchbar/Searchbar';
 import { MenuItems } from './MenuItems'
 import './Navbar.css'
-// import axios from 'axios';
-
-var request = require("request"); //needed for post request
-
-let backendData;
-
-let setBackendData;
 
 class Navbar extends Component {
 
     state = {
         value: '',
-        // title: []
     }
-    backendData = []
-
-    setBackendData = [];
-
-    searchSection = 'http://localhost:8000/search_game'
-    // fullSearch = this.searchSection.concat(this.state.value)
-
+    backendData = ('');
+    setBackendData = ('')
 
     getValue = (event) => {
         this.setState({ value: event.target.value });
@@ -41,19 +27,19 @@ class Navbar extends Component {
         const firstValue = 'http://localhost:8000/search_game/'
         let searchedTerm = this.state.value
         let fullURL = firstValue.concat(searchedTerm)
-        console.log("this is the fullSearch: ", fullURL);
-        console.log("this is the submitted value: ", this.state.value)
         fetch(fullURL).then(
             response => response.json()
         ).then(
             data => {
-                setBackendData(data)
+                this.setBackendData.concat(data)
             }
         )
+        console.log("this is the setBackendData: ", this.setBackendData)
     }
 
     render() {
         return(
+            <>
             <div>
                 <div className='NavbarItems'>
                     <img className='navbar-logo' alt= "our Logo" src = "muninnLogo.png"/>
@@ -71,19 +57,20 @@ class Navbar extends Component {
                                 </React.Fragment>
                             )
                         })}
-                    <div>
-                    {(typeof this.backendData.title === 'undefined') ? (
-                            <p> Loading....</p>
-                        ):(
-                            this.backendData.title.map((title, index) => (
-                                <p key={index}>{title}</p>
-                            ))
-                        )}
-                    </div>
                     <Button>Sign Up</Button>
                     <Button>Login</Button>
                 </div>
             </div>
+            <div>
+                {(this.backendData.length <= 0) ? (
+                    <p> Loading....</p>
+                ):(
+                    this.backendData.map((title, index) => (
+                        <p key={index}>{title}</p>
+                    ))
+                )}
+            </div>
+            </>
         )
     }
 }

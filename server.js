@@ -1,5 +1,6 @@
 const core = require('@actions/core');
 const express = require('express');
+const cors = require('cors');
 const mongoose = require('mongoose');
 const Router = require("./routes");
 const path = require('path');
@@ -8,6 +9,7 @@ const bodyParser = require("body-parser");
 
 //NodeJS Server Setup
 const app = express();
+app.use(cors());
 
 let port = process.env.PORT;
 if (port == null || port == "") {
