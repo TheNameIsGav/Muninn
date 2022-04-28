@@ -49,7 +49,7 @@ app.post('/add_game', (req, res) => {
     if (err) return console.error(err);
     console.log(game.title + " saved");
   })
-  console.log(game.art.data);
+  //console.log(game.art.data);
 
   res.end("yes");
 
@@ -118,6 +118,7 @@ app.post('/add_review', (req, res) => {
 //https://expressjs.com/en/guide/routing.html
 
 //Usage: Append the search query to the "search_game" route and code will return json of closest matching game from database
+//Gabriel
 app.get('/search_game/:search_query', async (request, response) => {
   var search = request.params.search_query.replace("_", " ");
   search = escapeRegExp(search)
@@ -125,10 +126,29 @@ app.get('/search_game/:search_query', async (request, response) => {
 
   //Builds regex expression to search for similar names based on the query
   var reg = new RegExp(search, 'i')
-  var matchingGames = JSON.stringify(await Game.find({title: {$regex: reg}}).exec());
+  var matchingGames = JSON.stringify(await Game.findOne({title: {$regex: reg}}).exec());
 
   response.send(matchingGames);
 });
 
+//Serve a list of games names to the frontend for searching through the database. 
+app.get('/serve_default_games', async (request, response) => {
+
+  var gamesComplexArray = await Game.find({}).select('title');
+
+  if(gamesComplexArray.length == 0){
+    console.log("we shouldn't have gotten here");
+    response.send("");
+  }
+
+  var gamesSimpleArray = [];
+
+  gamesComplexArray.forEach((x, i) => gamesSimpleArray.push(x.title));
+
+  var retText = JSON.stringify(gamesSimpleArray);
+
+  response.send(retText);
+});
+
+
 module.exports = app;
-//remember to remind group to install do "npm i --s concurrently" and "cd frontend; npm install react"
