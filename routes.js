@@ -41,16 +41,14 @@ app.post('/add_game', (req, res) => {
     tags : Array.isArray(tags) ? tags : [tags],
     platforms : platforms
   })
-  
-  game.art.data = fs.readFileSync(req.body.imgPath);
-  game.art.contenType = 'image/png';
-  
 
   game.save(function (err, game){
     if (err) return console.error(err);
     console.log(game.title + " saved");
   })
 
+  //game.art.data = fs.readFileSync(req.body.imgPath);
+  //game.art.contenType = 'image/png';
   res.end("yes");
 
 });
@@ -89,14 +87,13 @@ app.post('/add_user', (req, res) => {
   res.end("yes");
 });
 
-app.post('/add_review', (req, res) => {
-  var userId = req.body.userId;
-  var gameId = req.body.gameId;
-  var desc = req.body.desc;
-  var rating = req.body.rating;
+app.post('/add_review', async (request, response) => {
+
+  var userId = request.body.userId;
+  var gameId = request.body.gameId;
+  var desc = request.body.desc;
+  var rating = request.body.rating;
   
-  console.log("Username: " + username);
-  console.log("Email: " + email);
  
   var review = new Review({
     userId: userId,
@@ -105,13 +102,30 @@ app.post('/add_review', (req, res) => {
     rating : rating
   })
 
-
-
+ 
   review.save(function (err, user){
     if (err) return console.error(err);
     console.log(review + " saved");
   })
-  res.end("yes");
+
+  var user = await User.findById(userId).exec();
+  console.log(userId)
+  user.reviews.push(review);
+  user.save(function (err, user){
+    if (err) return console.error(err);
+    console.log(user.username + " updated, now has reviews: " + user.reviews);
+  })
+
+  
+  var game = await Game.findById(gameId).exec();
+  console.log(game.title);
+  game.reviews.push(review);
+  game.save(function (err, game){
+    if (err) return console.error(err);
+    console.log(game.title + " updated to include review");
+  })
+
+  response.end("yes");
 });
 
 
@@ -128,6 +142,15 @@ app.get('/search_game/:search_query', async (request, response) => {
   var matchingGames = JSON.stringify(await Game.find({title: {$regex: reg}}).exec());
 
   response.send(matchingGames);
+});
+
+app.get('/view_game/:id', async (request, response) => {
+  var game = Game.findById(request.params.id).populate('reviews').exec(function (err, game){
+    if (err) return consol.log(err);
+    console.log(game.reviews[0].desc);
+  }); 
+
+  response.send(game);
 });
 
 module.exports = app;
