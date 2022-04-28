@@ -4,17 +4,11 @@
 
     "server": "node server.js",
 
-    "database": "node Database/database.js",
-
-    "start": "node server.js",
-
-    "postTest": "node TestScripts/test.js",
-
     "client": "cd frontend && npm run start",
 
     "fullstack": "concurrently \"npm run client\" \"npm run server\" ",
 
-    "install": "cd frontend && npm install && npm audit fix --force"
+    "install": "cd frontend && npm install"
   },
 
   "dependencies": {
