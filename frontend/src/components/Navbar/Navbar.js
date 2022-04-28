@@ -1,3 +1,4 @@
+// /* eslint-disable */
 import React, {Component} from 'react';
 import { Button } from '../Button';
 import { MenuItems } from './MenuItems'
@@ -6,35 +7,42 @@ import './Navbar.css'
 class Navbar extends Component {
 
     state = {
-        value: '',
+        gameInfo: [],
     }
-    backendData = ('');
-    setBackendData = ('')
 
+    //this is for the values within the searchbar
     getValue = (event) => {
-        this.setState({ value: event.target.value });
+        this.setState({ value: event.target.value })
+
+        console.log("event: ", event.target.value);
     }
 
 
+    //this is for the onClick of submit
     handleSubmit = (event) => {
         event.preventDefault();
         const value = this.state.value;
-        console.log("value on submit: ", value);
+
+        console.log("this is the value on submit: ", value);
+        this.componentDidMount();
     }
 
-    randomThing = (event) => {
-        event.preventDefault();
+
+    componentDidMount = () => {
+        console.log("submit on click component did mount works")
         const firstValue = 'http://localhost:8000/search_game/'
         let searchedTerm = this.state.value
         let fullURL = firstValue.concat(searchedTerm)
-        fetch(fullURL).then(
-            response => response.json()
-        ).then(
-            data => {
-                this.setBackendData.concat(data)
-            }
-        )
-        console.log("this is the setBackendData: ", this.setBackendData)
+        fetch(fullURL)
+            .then((res) => res.json())
+            .then((data) => {
+                const gameInfo = data;
+                console.log("data: ", data);
+                console.log("gameInfo: ", gameInfo);
+            })
+            .catch(() => {
+
+            });
     }
 
     render() {
@@ -46,7 +54,7 @@ class Navbar extends Component {
                     <form action="">
                             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
                             <input type="text" onChange={ this.getValue } />
-                            <button onClick={ this.randomThing }><i class="fa fa-search"></i></button>
+                            <button onClick={ this.handleSubmit } id="demo"><i class="fa fa-search"></i></button>
                     </form>
                         {MenuItems.map((item, index) => {
                             return (
@@ -62,13 +70,19 @@ class Navbar extends Component {
                 </div>
             </div>
             <div>
-                {(this.backendData.length <= 0) ? (
+                {(this.state.gameInfo === 'undefined') ? (
                     <p> Loading....</p>
-                ):(
-                    this.backendData.map((title, index) => (
-                        <p key={index}>{title}</p>
-                    ))
-                )}
+                ) : (
+                this.state.gameInfo.map((gameInfo) => {
+                    return(
+                        <>
+                        <p> ID: {gameInfo._id}</p>
+                        <p> title: {gameInfo.title}</p>
+                        <p> description: {gameInfo.description}</p>
+                        <p> publisher: {gameInfo.publisher}</p>
+                        </>
+                    );
+                }))}
             </div>
             </>
         )

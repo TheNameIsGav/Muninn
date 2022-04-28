@@ -1,0 +1,27 @@
+//notes
+
+[
+  {
+    "_id": "626041737f1f6c0a235d0545",
+    "title": "Just Dance",
+    "description": "Dance",
+    "publisher": "Ubisoft",
+    "tags": ["dance", "music"],
+    "platforms": ["Wii", "Wii U", "Playstation", "Xbox"],
+    "reviews": ["626a06aa43c74c85d5a25540"],
+    "__v": 1
+  }
+]
+
+
+/* {this.state.gameInfo.map((gameInfo) => {
+                    return(
+                        <>
+                        <p> why is it not working</p>
+                        <p> ID: {gameInfo._id}</p>
+                        <p> title: {gameInfo.title}</p>
+                        <p> description: {gameInfo.description}</p>
+                        <p> publisher: {gameInfo.publisher}</p>
+                        </>
+                    )
+                })} */
