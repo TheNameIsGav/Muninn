@@ -12,8 +12,9 @@
 
     "client": "cd frontend && npm run start",
 
-    "fullstack": "concurrently \"npm run client\" \"npm run server\" "
+    "fullstack": "concurrently \"npm run client\" \"npm run server\" ",
 
+    "install": "cd frontend && npm install && npm audit fix --force"
   },
 
   "dependencies": {
@@ -26,11 +27,7 @@
 
     "concurrently": "^7.1.0",
 
-    "cors": "^2.8.5",
-
     "dotenv": "^16.0.0",
-
-    "ejs": "^3.0.2",
 
     "express": "^4.17.3",
 
