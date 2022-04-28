@@ -20,12 +20,9 @@ if(environment == "prod"){
   database = "production"
 }
 
-
-app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.json());
 app.use("/", Router);
-
 
 
 const uri = "mongodb+srv://" + process.env.USER_NAME + ":" + process.env.USER_PASSWORD + "@muninn.m3vbg.mongodb.net/"+ database + "?retryWrites=true&w=majority";
