@@ -36,12 +36,10 @@ class Navbar extends Component {
         fetch(fullURL)
             .then((res) => res.json())
             .then((data) => {
-                const gameInfo = data;
-                console.log("data: ", data);
-                console.log("gameInfo: ", gameInfo);
+                this.setState({ gameInfo: data})
             })
             .catch(() => {
-
+                alert("game not found");
             });
     }
 
@@ -51,10 +49,12 @@ class Navbar extends Component {
             <div>
                 <div className='NavbarItems'>
                     <img className='navbar-logo' alt= "our Logo" src = "muninnLogo.png"/>
-                    <form action="">
+                    <form action="" className="example">
+                        <div className='searchbar'>
                             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
-                            <input type="text" onChange={ this.getValue } />
-                            <button onClick={ this.handleSubmit } id="demo"><i class="fa fa-search"></i></button>
+                            <input type="text" onChange={ this.getValue } name="search" />
+                            <button onClick={ this.handleSubmit } id="demo"><i className="fa fa-search"></i></button>
+                        </div>
                     </form>
                         {MenuItems.map((item, index) => {
                             return (
@@ -69,20 +69,28 @@ class Navbar extends Component {
                     <Button>Login</Button>
                 </div>
             </div>
-            <div>
-                {(this.state.gameInfo === 'undefined') ? (
+            <div className = "GameInformation">
+                { this.state.gameInfo && this.state.gameInfo.map((game) => 
+                    <>
+                    <p id = "game_id">{game._id}</p>
+                    <p id = "game_title">{game.title}</p>
+                    <p id = "game_desc">{game.description}</p>
+                    </>
+                )}
+                
+
+
+                {/* {(this.state.gameInfo === 'undefined') ? (
                     <p> Loading....</p>
                 ) : (
-                this.state.gameInfo.map((gameInfo) => {
-                    return(
+                this.state.gameInfo.map((gameInfo) => 
+                { return(
                         <>
-                        <p> ID: {gameInfo._id}</p>
-                        <p> title: {gameInfo.title}</p>
-                        <p> description: {gameInfo.description}</p>
-                        <p> publisher: {gameInfo.publisher}</p>
+                        <p> ID: {JSON.stringify(gameInfo._id)}</p>
+                        <p> title: {JSON.stringify(gameInfo.title)}</p>
                         </>
                     );
-                }))}
+                }))} */}
             </div>
             </>
         )
