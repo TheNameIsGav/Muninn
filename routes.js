@@ -17,7 +17,6 @@ function escapeRegExp(string) {
 
 /*
 display_user
-display_game
 browse_games
 search_users
 display_profile
@@ -116,8 +115,17 @@ app.post('/add_review', (req, res) => {
   res.end("yes");
 });
 
+//Gets the reviews for a game based on the id of that game
+app.get('/view_game/:id', async (request, response) => {
+  var game = Game.findById(request.params.id).populate('reviews').exec(function (err, game){
+    if (err) return console.log(err);
+    console.log(game.reviews[0].desc);
+  }); 
 
-//Search for a game with 'search_query' and return the json string of that game
+  response.send(game);
+});
+
+//Search for a game with 'search_query' and return the json string of that game - used for displaying the game after a search
 app.get('/search_game/:search_query', async (request, response) => {
   //Original Author: Gabriel
   var search = request.params.search_query.replace("_", " ");
@@ -130,9 +138,18 @@ app.get('/search_game/:search_query', async (request, response) => {
   response.send(matchingGames);
 });
 
+//Get and display information about a game via it's ID
+app.get('/display_game/:id', async(request, response) => {
+  var game = Game.findById(request.params.id).exec(function(err, game) {
+    if(err) return console.log(err);
+  });
+
+  response.send(JSON.stringify(game));
+});
+
 //Serve a list of games names to the frontend for searching through the database. 
 app.get('/serve_default_games', async (request, response) => {
-
+  //Original Author: Gabriel
   var gamesComplexArray = await Game.find({}).select('title');
 
   if(gamesComplexArray.length == 0){
