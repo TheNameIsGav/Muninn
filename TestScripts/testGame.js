@@ -3,15 +3,13 @@ postData = {},
 postConfig = {},
 postSuccessHandler = null;
 
-
-
 postData = {
-    title : "Doom Eternal", 
-    description : "The Doom Slayer spends his time in hell surviving and murdering legions of demons which earns him the title of Doom Slaye",
-    publisher: "Bethesda Softworks",
-    platforms: ["Microsoft Windows", "Playstation 4", "Stadia", "Xbox One", "Nintendo Switch", "Playstation 5", "Xbox Series X/S"],
-    tags: ["fps", "singleplayer", "multiplayer"],
-    imgPath: "uploads/Doom_Eternal.png"
+    title : "League of Legends", 
+    description : "A 2009 multiplayer online battle arena video game developed and published by Riot Games.",
+    publisher: "Riot Games",
+    platforms: ["Microsoft Windows", "OS X"],
+    tags: ["moba", "multiplayer", "competitive"],
+    imgPath: "uploads/LOL.png"
 }
 
 postConfig = {
@@ -24,4 +22,3 @@ postSuccessHandler = function (err, httpResponse, body) {
 }
 
 request.post(postConfig, postSuccessHandler);
-request('http://localhost:8000/games', postSuccessHandler)
