@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import { Button } from '../Button';
 import { MenuItems } from './MenuItems'
 import './Navbar.css'
+import './GameDisplay.css'
 
 class Navbar extends Component {
 
@@ -46,7 +47,6 @@ class Navbar extends Component {
     render() {
         return(
             <>
-            <div>
                 <div className='NavbarItems'>
                     <img className='navbar-logo' alt= "our Logo" src = "muninnLogo.png"/>
                     <form action="" className="example">
@@ -68,29 +68,17 @@ class Navbar extends Component {
                     <Button>Sign Up</Button>
                     <Button>Login</Button>
                 </div>
-            </div>
             <div className = "GameInformation">
                 { this.state.gameInfo && this.state.gameInfo.map((game) => 
                     <>
-                    <p id = "game_id">{game._id}</p>
-                    <p id = "game_title">{game.title}</p>
-                    <p id = "game_desc">{game.description}</p>
+                    <p>
+                        <img src= {game.image} alt="game picture" id ="image"/>
+                        <h3 id = "game_title">{game.title}</h3>
+                        <h3 id = "game_id">{game._id}</h3>
+                        <h3 id = "game_desc">{game.description}</h3>
+                    </p>
                     </>
                 )}
-                
-
-
-                {/* {(this.state.gameInfo === 'undefined') ? (
-                    <p> Loading....</p>
-                ) : (
-                this.state.gameInfo.map((gameInfo) => 
-                { return(
-                        <>
-                        <p> ID: {JSON.stringify(gameInfo._id)}</p>
-                        <p> title: {JSON.stringify(gameInfo.title)}</p>
-                        </>
-                    );
-                }))} */}
             </div>
             </>
         )

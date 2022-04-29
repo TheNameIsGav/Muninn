@@ -1,0 +1,44 @@
+.row {
+    display: flex;
+    align-items: center;
+    justify-content: center
+}
+
+.GameInformation {
+    font-size: 3rem;
+}
+
+#game_title {
+    color: rgb(97, 122, 97);
+    padding-left: 60%;
+}
+
+#game_id {
+    font-size: 1rem;
+    color: grey;
+    /* padding-left: 60%; */
+}
+
+
+.image {
+    max-width: 100%;
+}
+
+#image {
+    height: auto;
+    width: 700px;
+    flex-basis: 40%
+    /* position: left top; */
+}
+
+
+
+#game_desc {
+    font-size: 2rem;
+    
+}
+
+
+p {
+  background-color: rgb(177, 176, 188);
+}
