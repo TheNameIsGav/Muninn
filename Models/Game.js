@@ -22,7 +22,7 @@ const GameSchema = new Schema ({
     },
     tags: [{
         type: String,
-        enum: ["beginner", "advanced", "sports", "action", "adventure", "strategy", "puzzle", "role-play", "simulation", "competetive", "cooperative", "fighting", "music", "dance", "social", "multiplayer", "singleplayer", "calming", "fps"]
+        enum: ["beginner", "advanced", "sports", "action", "adventure", "strategy", "puzzle", "role-play", "simulation", "competitive", "cooperative", "fighting", "music", "dance", "social", "multiplayer", "singleplayer", "calming", "fps", "moba"]
     }],
     platforms: [{
         type: String

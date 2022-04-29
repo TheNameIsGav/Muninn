@@ -15,23 +15,30 @@ function escapeRegExp(string) {
   return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
+/*
+display_user
+display_game
+browse_games
+search_users
+display_profile
+add_library_game
+add_wishlist_game
+add_friend
+*/
+
+
+//Default renderer, but I am p sure that we don't use this?
 app.get('/', (req, res) => {
     res.render("index");
   });
 
-app.post('/add_game', (req, res) => {
+//Add a user-defined game to the database
+app.post('/add_game', async (req, res) => {
   var title = req.body.title;
   var description = req.body.description;
   var publisher = req.body.publisher;
   var tags = req.body.tags;
   var platforms = req.body.platforms; 
-  //var artData = fs.readFileSync(req.body.imgPath);
- //var artContentType = 'image/png';
-
-  console.log("Title of the game is: " + title + " and the description is " + description);
-  console.log("Platforms: " + req.body.platforms);
-  console.log("Tags: " + req.body.tags);
-
 
   var game = new Game({
     title: title, 
@@ -44,28 +51,25 @@ app.post('/add_game', (req, res) => {
   game.art.data = fs.readFileSync(req.body.imgPath);
   game.art.contenType = 'image/png';
   
+//Detect if a previous game exists
+  var search = escapeRegExp(title)
+  var reg = new RegExp(search, 'i')
+  var value = await Game.findOne({title: {$regex: reg}}).exec()
 
-  game.save(function (err, game){
-    if (err) return console.error(err);
-    console.log(game.title + " saved");
-  })
-  //console.log(game.art.data);
+  if(value == null){
 
-  res.end("yes");
+    game.save(function (err, game){
+      if (err) return console.error(err);
+      console.log(game.title + " saved");
+    })
 
-});
-
-app.get("/games", async (request, response) => {
-  const game = await Game.find({});
-  
-  try {
-    response.send(game);
-    console.log(game);
-  } catch (error) {
-    response.status(500).send(error);
+    res.end("saved game to database");
+  } else {
+    res.end("We found a game similar to your search term of " + title + " [" + value.id + "]")
   }
 });
 
+//Add's user to the list of all users TODO figure out password hashing and prevent conflicting users
 app.post('/add_user', (req, res) => {
   var username = req.body.username;
   var password = req.body.password;
@@ -88,6 +92,7 @@ app.post('/add_user', (req, res) => {
   res.end("yes");
 });
 
+//Add a review to a specific game, by a specific user
 app.post('/add_review', (req, res) => {
   var userId = req.body.userId;
   var gameId = req.body.gameId;
@@ -115,14 +120,11 @@ app.post('/add_review', (req, res) => {
 });
 
 
-//https://expressjs.com/en/guide/routing.html
-
-//Usage: Append the search query to the "search_game" route and code will return json of closest matching game from database
-//Gabriel
+//Search for a game with 'search_query' and return the json string of that game
 app.get('/search_game/:search_query', async (request, response) => {
+  //Original Author: Gabriel
   var search = request.params.search_query.replace("_", " ");
   search = escapeRegExp(search)
-  console.log(search)
 
   //Builds regex expression to search for similar names based on the query
   var reg = new RegExp(search, 'i')
@@ -152,3 +154,5 @@ app.get('/serve_default_games', async (request, response) => {
 
 
 module.exports = app;
+
+//https://expressjs.com/en/guide/routing.html
