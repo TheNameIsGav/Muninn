@@ -44,7 +44,7 @@ app.post('/add_game', async (req, res) => {
     title: title, 
     description : description,
     publisher: publisher,
-    tags : tags,
+    tags : Array.isArray(tags) ? tags : [tags],
     platforms : platforms
   })
   
@@ -57,16 +57,16 @@ app.post('/add_game', async (req, res) => {
   var value = await Game.findOne({title: {$regex: reg}}).exec()
 
   if(value == null){
-
     game.save(function (err, game){
       if (err) return console.error(err);
       console.log(game.title + " saved");
-    })
+    });
 
     res.end("saved game to database");
   } else {
     res.end("We found a game similar to your search term of " + title + " [" + value.id + "]")
   }
+
 });
 
 //Add's user to the list of all users TODO figure out password hashing and prevent conflicting users
@@ -103,14 +103,11 @@ app.post('/add_review', (req, res) => {
   console.log("Email: " + email);
  
   var review = new Review({
-    user: userId,
-    //need to figure out password stuff 
-    game : gameId,
+    userId: userId,
+    gameId : gameId,
     desc: desc,
     rating : rating
   })
-
-
 
   review.save(function (err, user){
     if (err) return console.error(err);
@@ -142,7 +139,7 @@ app.get('/serve_default_games', async (request, response) => {
     console.log("we shouldn't have gotten here");
     response.send("");
   }
-
+//TODO convert this into a dictionary of title: _id
   var gamesSimpleArray = [];
 
   gamesComplexArray.forEach((x, i) => gamesSimpleArray.push(x.title));
@@ -152,7 +149,20 @@ app.get('/serve_default_games', async (request, response) => {
   response.send(retText);
 });
 
+//Older version of serve_default_games
+// //sends all of the games in the database
+// app.get("/browse_games", async (request, response) => {
+//   const games = await Game.find({});
+  
+//   try {
+//     response.send(games);
+//     console.log(games);
+//   } catch (error) {
+//     response.status(500).send(error);
+// >>>>>>> viewGameLeahModels
+//   }
+// });
+
 
 module.exports = app;
-
 //https://expressjs.com/en/guide/routing.html
