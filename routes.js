@@ -17,7 +17,6 @@ function escapeRegExp(string) {
 
 /*
 display_user
-display_game
 browse_games
 search_users
 display_profile
@@ -129,32 +128,70 @@ app.post('/add_review', (req, res) => {
   res.end("yes");
 });
 
-//assumes req.usernameSearch has the username being searched for 
-app.get('/search_users', (req, res) => {
-  User.find({username : req.usernameSearch}, (error, data) => {
-    if(error) throw error;
-    if(data) {
-      res.json(result)
-    } else {
-      res.send(JSON.stringify({
-        error : 'Error'
-      }))
-    }
-    
-  })
-})
+//Gets the reviews for a game based on the id of that game
+app.get('/view_game/:id', async (request, response) => {
+  var game = Game.findById(request.params.id).populate('reviews').exec(function (err, game){
+    if (err) return console.log(err);
+    console.log(game.reviews[0].desc);
+  }); 
 
-app.get('/search_games', (req, res) => {
-  User.find({username : req.gameSearch}, (error, data) => {
-    if(error) throw error;
-    if(data) {
-      res.json(result)
-    } else {
-      res.send(JSON.stringify({
-        error : 'Error'
-      }))
-    }
-    
-  })
-})
+  response.send(game);
+});
+
+//Search for a game with 'search_query' and return the json string of that game - used for displaying the game after a search
+app.get('/search_game/:search_query', async (request, response) => {
+  //Original Author: Gabriel
+  var search = request.params.search_query.replace("_", " ");
+  search = escapeRegExp(search)
+
+  //Builds regex expression to search for similar names based on the query
+  var reg = new RegExp(search, 'i')
+  var matchingGames = JSON.stringify(await Game.findOne({title: {$regex: reg}}).exec());
+
+  response.send(matchingGames);
+});
+
+//Get and display information about a game via it's ID
+app.get('/display_game/:id', async(request, response) => {
+  var game = Game.findById(request.params.id).exec(function(err, game) {
+    if(err) return console.log(err);
+  });
+
+  response.send(JSON.stringify(game));
+});
+
+//Serve a list of games names to the frontend for searching through the database. 
+app.get('/serve_default_games', async (request, response) => {
+  //Original Author: Gabriel
+  var gamesComplexArray = await Game.find({}).select('title');
+
+  if(gamesComplexArray.length == 0){
+    console.log("we shouldn't have gotten here");
+    response.send("");
+  }
+//TODO convert this into a dictionary of title: _id
+  var gamesSimpleArray = [];
+
+  gamesComplexArray.forEach((x, i) => gamesSimpleArray.push(x.title));
+
+  var retText = JSON.stringify(gamesSimpleArray);
+
+  response.send(retText);
+});
+
+//Older version of serve_default_games
+// //sends all of the games in the database
+// app.get("/browse_games", async (request, response) => {
+//   const games = await Game.find({});
+  
+//   try {
+//     response.send(games);
+//     console.log(games);
+//   } catch (error) {
+//     response.status(500).send(error);
+// >>>>>>> viewGameLeahModels
+//   }
+// });
+
+
 module.exports = app;
