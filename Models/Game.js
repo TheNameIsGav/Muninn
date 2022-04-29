@@ -16,13 +16,13 @@ const GameSchema = new Schema ({
     developer: {
         type: String
     },
-    art: {
-        data: Buffer,
-        contentType: String
+    image: {
+        type: String
     },
     tags: [{
         type: String,
-        enum: ["beginner", "advanced", "sports", "action", "adventure", "strategy", "puzzle", "role-play", "simulation", "competetive", "cooperative", "fighting", "music", "dance", "active"]
+        enum: ["beginner", "advanced", "sports", "action", "adventure", "strategy", "puzzle", "role-play", "simulation", "competetive", "cooperative", "fighting", "music", "dance", "active",
+                "indie", "fantasy", "local multiplayer", "online multiplayer", "singleplayer", "2D", "3D", "shooter", "arcade", "rpg", "mmo", "anime", '']
     }],
     platforms: [{
         type: String
