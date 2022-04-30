@@ -5,10 +5,13 @@ const Game = require('./Models/Game.js');
 const Review = require('./Models/Review.js');
 const User = require('./Models/User.js');
 const fs = require('fs');
+const bcrypt = require('bcrypt')
 const app = express();
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
+
+const saltRounds = 12;
 
 //https://stackoverflow.com/questions/3446170/escape-string-for-use-in-javascript-regex/6969486#6969486
 function escapeRegExp(string) {
@@ -20,9 +23,9 @@ display_user
 browse_games
 search_users
 display_profile
-add_library_game
-add_wishlist_game
-add_friend
+add_library_game - Gabriel 
+add_wishlist_game - Gabriel
+add_friend - Gabriel
 */
 
 
@@ -80,27 +83,64 @@ app.get("/browse_games", async (request, response) => {
 });
 
 //Add's user to the list of all users TODO figure out password hashing and prevent conflicting users
-app.post('/add_user', (req, res) => {
-  var username = req.body.username;
-  var password = req.body.password;
-  var email = req.body.email;
-  
-  console.log("Username: " + username);
-  console.log("Email: " + email);
- 
-  var user = new User({
-    username: username,
-    //need to figure out password stuff 
-    password : password,
-    email: email
-  })
+app.post('/add_user', async (req, res) => {
 
-  user.save(function (err, user){
-    if (err) return console.error(err);
-    console.log(user.username + " saved");
-  })
-  res.end("yes");
+  const {username, password, email} = req.body;
+
+  //Search for an existing user, and if found and username or email matches, return "User already exists"
+
+  var potentialUsers = await User.find({$or:[{username:username}, {email:email}]}).exec();
+
+  if(potentialUsers.length != 0){
+    console.log("Email or username already appears in database");
+    res.send("Found previously existing user").status(201);
+  } else {
+
+    //Make new user
+    //Hash password, then save new account
+    bcrypt.hash(req.body.password, saltRounds, (err, hash) => {
+      
+        var user = new User({
+          username: username,
+          password : hash,
+          email: email
+        })
+  
+        user.save(function (err, user){
+          if (err) {
+            res.end("Failed to save user")
+            return console.error(err);
+          }
+        });
+        res.send(user).status(201)
+    });
+  }
+
 });
+
+app.post('/login', async (req, res) => {
+  const {username, password, email } = req.body;
+
+  //Figure out if the previous username exists, and if it does, then check the passwords. If they match, send the user
+  await User.findOne(
+    {username: username, email: email}
+  ).exec().then(user => {
+    if(!user) {
+      return res.send("Username or Email not found").status(401);
+    } else {
+      bcrypt.compare(req.body.password, user.password, (error, result) => {
+        if(result) {
+          res.send(user);
+        } else {
+          return res.send("Password mismatch").status(401);
+        }
+      });
+    }
+  });
+
+});
+
+
 
 //Add a review to a specific game, by a specific user
 app.post('/add_review', (req, res) => {
