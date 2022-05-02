@@ -131,15 +131,12 @@ app.post('/login', async (req, res) => {
 
 
 
-//Add a review to a specific game, by a specific user
+//Add a review to a specific game, by a specific user; has both user and game link to review
 app.post('/add_review', (req, res) => {
   var userId = req.body.userId;
   var gameId = req.body.gameId;
   var desc = req.body.desc;
   var rating = req.body.rating;
-  
-  console.log("Username: " + username);
-  console.log("Email: " + email);
  
   var review = new Review({
     userId: userId,
@@ -151,6 +148,29 @@ app.post('/add_review', (req, res) => {
   review.save(function (err, user){
     if (err) return console.error(err);
     console.log(review + " saved");
+  })
+
+  var user = await User.findById(userId).exec();
+  user.review.push(review);
+  user.save(function (err, user){
+    if (err) return console.error(err);
+    console.log(user.username + " updated, now has review: " + user.reviews);
+  })
+
+  var game = await Game.findById(gameId).exec();
+  
+  //calculates new average rating
+  var num_ratings = game.reviews.length;
+  var total_rating = game.rating * num_ratings;
+  var new_rating = (total_rating + review.rating) / (num_ratings + 1);
+  game.rating = new_rating;
+
+  //adds review to array in game document
+  game.reviews.push(review);
+  
+  game.save(function (err, game){
+    if (err) return console.error(err);
+    console.log(game.title + " updated to include review");
   })
   res.end("yes");
 });
