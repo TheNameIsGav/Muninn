@@ -34,51 +34,41 @@ app.get('/', (req, res) => {
     res.render("index");
   });
 
-//adds game to database
-app.post('/add_game', (req, res) => {
-  var title = req.body.title;
-  var description = req.body.description;
-  var publisher = req.body.publisher;
-  var tags = req.body.tags;
-  var platforms = req.body.platforms; 
-
-  var game = new Game({
-    title: title, 
-    description : description,
-    publisher: publisher,
-    tags : Array.isArray(tags) ? tags : [tags],
-    platforms : platforms
-  })
+//Add a user-defined game to the database
+app.post('/add_game', async (req, res) => {
+  var {title, publisher, tags, platforms} = req.body; 
   
-  game.art.data = fs.readFileSync(req.body.imgPath);
-  game.art.contenType = 'image/png';
-  
-//Detect if a previous game exists
-  var search = escapeRegExp(title)
-  var reg = new RegExp(search, 'i')
-  var value = await Game.findOne({title: {$regex: reg}}).exec()
+  //Checks to see if all the requirements for the game are in place
+  if((title == "") || (publisher == "") || (tag.length == 0) || (platforms == "")) {
+    res.end().status(401);
+  } else {
 
-  game.save(function (err, game){
-    if (err) return console.error(err);
-    console.log(game.title + " saved");
-  })
-
-    game.save(function (err, game){
-      if (err) return console.error(err);
-      console.log(game.title + " saved");
+    var game = new Game({
+      title: title, 
+      description : description,
+      publisher: publisher,
+      tags : Array.isArray(tags) ? tags : [tags],
+      platforms : platforms
     })
+    
+    game.art.data = fs.readFileSync(req.body.imgPath);
+    game.art.contenType = 'image/png';
+    
+    //Detect if a previous game exists
+    var search = escapeRegExp(title)
+    var reg = new RegExp(search, 'i')
+    var value = await Game.findOne({title: {$regex: reg}}).exec()
 
-});
+    if(value == null){
+      game.save(function (err, game){
+        if (err) return console.error(err);
+        console.log(game.title + " saved");
+      });
 
-//sends all of the games in the database
-app.get("/browse_games", async (request, response) => {
-  const games = await Game.find({});
-  
-  try {
-    response.send(games);
-    console.log(games);
-  } catch (error) {
-    response.status(500).send(error);
+      res.end("saved game to database");
+    } else {
+      res.end("We found a game similar to your search term of " + title + " [" + value.id + "]")
+    }
   }
 });
 
@@ -125,10 +115,10 @@ app.post('/login', async (req, res) => {
 
   //Figure out if the previous username exists, and if it does, then check the passwords. If they match, send the user
   await User.findOne(
-    {username: username, email: email}
+    {username: username}
   ).exec().then(user => {
     if(!user) {
-      return res.send("Username or Email not found").status(401);
+      return res.send("Username not found").status(401);
     } else {
       bcrypt.compare(req.body.password, user.password, (error, result) => {
         if(result) {
@@ -219,6 +209,25 @@ app.get('/serve_default_games', async (request, response) => {
   var retText = JSON.stringify(gamesSimpleArray);
 
   response.send(retText);
+});
+
+app.post('/add_game_to_library', async (req, res) => {
+  //Original Author: Gabriel
+  const {userID, gameID} = req.body;
+  var user = await User.findById(userID);
+
+  user.library.push(gameID)
+
+  user.save(function (err, user) {
+    if(err) {
+      console.log("Error saving user in adding game to libary")
+      res.end().status(401);
+    } else {
+      console.log("Updated user's library")
+      res.end().status(201)
+    }
+  });
+
 });
 
 //Older version of serve_default_games

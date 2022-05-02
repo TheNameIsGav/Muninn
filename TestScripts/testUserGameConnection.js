@@ -4,10 +4,10 @@ postConfig = {},
 postSuccessHandler = null;
 
 //Example Post Request =========
-postData = {username : "Gavin the Gav", password : "test2password", email: "arealemail@muninn.com"}
+postData = {userID : "626d6d4177788fade82dfae5", gameID: "626c096ae6cded8304d01d23"}
 
 postConfig = {
-    url: 'http://localhost:8000/login',
+    url: 'http://localhost:8000/add_game_to_library',
     form: postData
 }
 
