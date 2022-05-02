@@ -82,7 +82,8 @@ app.get("/browse_games", async (request, response) => {
   }
 });
 
-//Add's user to the list of all users TODO figure out password hashing and prevent conflicting users
+//Add's user to the list of all users
+//Returns 401 in the case of a failure, or a 201 with the ID of the user
 app.post('/add_user', async (req, res) => {
 
   const {username, password, email} = req.body;
@@ -108,16 +109,17 @@ app.post('/add_user', async (req, res) => {
   
         user.save(function (err, user){
           if (err) {
-            res.end("Failed to save user")
+            res.end().status(401);
             return console.error(err);
           }
         });
-        res.send(user).status(201)
+        res.send(user._id).status(201)
     });
   }
 
 });
 
+//Returns 401 in the case of a failure, or a 201 with the ID of the user
 app.post('/login', async (req, res) => {
   const {username, password, email } = req.body;
 
@@ -130,7 +132,7 @@ app.post('/login', async (req, res) => {
     } else {
       bcrypt.compare(req.body.password, user.password, (error, result) => {
         if(result) {
-          res.send(user);
+          res.send(user._id).status(201);
         } else {
           return res.send("Password mismatch").status(401);
         }
