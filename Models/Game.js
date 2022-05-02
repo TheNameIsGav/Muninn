@@ -31,7 +31,8 @@ const GameSchema = new Schema ({
         type: Schema.Types.ObjectId, ref: 'Review'
     }],
     rating: {
-        type: Number
+        type: Number,
+        default: 0
     }
 })
 
