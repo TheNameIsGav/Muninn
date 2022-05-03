@@ -7,10 +7,7 @@ const ReviewSchema = new Schema({
         type: Schema.Types.ObjectId, ref: 'User',
         required: true
     },
-    userName : {
-        type: String
-    },
-    game: {
+    gameId: {
         type: Schema.Types.ObjectId, ref: 'Game'
     },
     desc: {

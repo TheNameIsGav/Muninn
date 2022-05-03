@@ -132,7 +132,7 @@ app.post('/login', async (req, res) => {
 
 
 //Add a review to a specific game, by a specific user; has both user and game link to review
-app.post('/add_review', (req, res) => {
+app.post('/add_review', async (req, res) => {
   var userId = req.body.userId;
   var gameId = req.body.gameId;
   var desc = req.body.desc;
@@ -151,7 +151,7 @@ app.post('/add_review', (req, res) => {
   })
 
   var user = await User.findById(userId).exec();
-  user.review.push(review);
+  user.reviews.push(review);
   user.save(function (err, user){
     if (err) return console.error(err);
     console.log(user.username + " updated, now has review: " + user.reviews);
@@ -229,9 +229,8 @@ app.get('/serve_default_games', async (request, response) => {
 //gets user by user id and populates different fields to return all user information
 app.get('/display_user/:id', async(request, response) => {
   //Original Author: Leah
-  var user = User.findById(request.params.id).populate('friends', 'reviews', 'wishlist', 'library', 'suggested', 'tags').exec(function (err, user){
-    if (err) return console.log(err);
-  });
+
+  var user =  await User.findById(request.params.id).populate('friends reviews wishlist library suggested').exec();
   response.send(JSON.stringify(user));
 });
 
@@ -240,9 +239,7 @@ app.get('/display_profile/:id', async(request, response) => {
   //Original Author: Leah
 
   //TODO decide what information we want other users to see for each profile 
-  var user = User.findById(request.params.id).populate('friends', 'reviews', 'library').exec(function (err, user){
-    if (err) return console.log(err);
-  });
+  var user = await User.findById(request.params.id).populate('friends reviews library').select('username email friends reviews library').exec();
   response.send(JSON.stringify(user));
 });
 
