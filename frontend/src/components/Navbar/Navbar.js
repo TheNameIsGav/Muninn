@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import { Button } from '../Button';
 import { MenuItems } from './MenuItems'
 import './Navbar.css'
+import './GameDisplay.css'
+import './Button.css'
 
 class Navbar extends Component {
 
@@ -22,8 +23,8 @@ class Navbar extends Component {
         console.log("value on submit: ", value);
     }
 
-    randomThing = (event) => {
-        event.preventDefault();
+    componentDidMount = () => {
+        console.log("submit on click component did mount works")
         const firstValue = 'http://localhost:8000/search_game/'
         let searchedTerm = this.state.value
         let fullURL = firstValue.concat(searchedTerm)
@@ -57,8 +58,12 @@ class Navbar extends Component {
                                 </>
                             )
                         })}
-                    <Button>Sign Up</Button>
-                    <Button>Login</Button>
+                    <a href=''>
+                        <button className="button"> click me</button>
+                    </a>
+                    <a href='Login.js'>
+                        <button className="button"> me too</button>
+                    </a>
                 </div>
             <div className = "GameInformation">
                 { this.state.gameInfo && this.state.gameInfo.map((game) => 
