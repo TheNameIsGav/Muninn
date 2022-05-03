@@ -19,10 +19,10 @@ function escapeRegExp(string) {
 }
 
 /*
-display_user
-browse_games
-search_users
-display_profile
+display_user - Leah
+browse_games 
+search_users 
+display_profile - Leah
 add_library_game - Gabriel 
 add_wishlist_game - Gabriel
 add_friend - Gabriel
@@ -135,15 +135,12 @@ app.post('/login', async (req, res) => {
 
 
 
-//Add a review to a specific game, by a specific user
-app.post('/add_review', (req, res) => {
+//Add a review to a specific game, by a specific user; has both user and game link to review
+app.post('/add_review', async (req, res) => {
   var userId = req.body.userId;
   var gameId = req.body.gameId;
   var desc = req.body.desc;
   var rating = req.body.rating;
-  
-  console.log("Username: " + username);
-  console.log("Email: " + email);
  
   var review = new Review({
     userId: userId,
@@ -156,14 +153,40 @@ app.post('/add_review', (req, res) => {
     if (err) return console.error(err);
     console.log(review + " saved");
   })
+
+  var user = await User.findById(userId).exec();
+  user.reviews.push(review);
+  user.save(function (err, user){
+    if (err) return console.error(err);
+    console.log(user.username + " updated, now has review: " + user.reviews);
+  })
+
+  var game = await Game.findById(gameId).exec();
+  
+  //calculates new average rating
+  var num_ratings = game.reviews.length;
+  var total_rating = 0;
+  if (game.rating) {
+    total_rating = game.rating * num_ratings;
+  }
+  var new_rating = (total_rating + review.rating) / (num_ratings + 1);
+  game.rating = new_rating;
+
+  //adds review to array in game document
+  game.reviews.push(review);
+  
+  game.save(function (err, game){
+    if (err) return console.error(err);
+    console.log(game.title + " updated to include review");
+  })
   res.end("yes");
 });
 
-//Gets the reviews for a game based on the id of that game
+//Gets the game along with reviews for a game based on the id of that game
 app.get('/view_game/:id', async (request, response) => {
   var game = Game.findById(request.params.id).populate('reviews').exec(function (err, game){
     if (err) return console.log(err);
-    console.log(game.reviews[0].desc);
+   
   }); 
 
   response.send(game);
@@ -228,6 +251,26 @@ app.post('/add_game_to_library', async (req, res) => {
   });
 
 });
+
+
+//gets user by user id and populates different fields to return all user information
+app.get('/display_user/:id', async(request, response) => {
+  //Original Author: Leah
+
+  var user =  await User.findById(request.params.id).populate('friends reviews wishlist library suggested').exec();
+  response.send(JSON.stringify(user));
+});
+
+//gets profile to be displayed by user id and populates certain fields to return relevant profile information
+app.get('/display_profile/:id', async(request, response) => {
+  //Original Author: Leah
+
+  //TODO decide what information we want other users to see for each profile 
+  var user = await User.findById(request.params.id).populate('friends reviews library').select('username email friends reviews library').exec();
+  console.log(user);
+  response.send(JSON.stringify(user));
+});
+
 
 //Older version of serve_default_games
 // //sends all of the games in the database

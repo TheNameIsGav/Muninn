@@ -28,10 +28,11 @@ const GameSchema = new Schema ({
         type: String
     }],
     reviews: [{
-        type: Schema.Types.ObjectId, ref: 'Review'
+        type: Schema.Types.ObjectId, ref: 'Review',
+        default: []
     }],
     rating: {
-        type: Number
+        type: Number,
     }
 })
 
