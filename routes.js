@@ -166,7 +166,10 @@ app.post('/add_review', async (req, res) => {
   
   //calculates new average rating
   var num_ratings = game.reviews.length;
-  var total_rating = game.rating * num_ratings;
+  var total_rating = 0;
+  if (game.rating) {
+    total_rating = game.rating * num_ratings;
+  }
   var new_rating = (total_rating + review.rating) / (num_ratings + 1);
   game.rating = new_rating;
 
@@ -245,6 +248,7 @@ app.get('/display_profile/:id', async(request, response) => {
 
   //TODO decide what information we want other users to see for each profile 
   var user = await User.findById(request.params.id).populate('friends reviews library').select('username email friends reviews library').exec();
+  console.log(user);
   response.send(JSON.stringify(user));
 });
 
