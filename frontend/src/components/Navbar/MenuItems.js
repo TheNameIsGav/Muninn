@@ -1,12 +1,12 @@
 export const MenuItems = [
     {
         title: "Sign Up", 
-        url: "#",
+        url: "http://localhost:3000/Login",
         cName: "nav-links-mobile"
     },
     {
         title: "Login", 
-        url: "#",
+        url: "http://localhost:3000/Login",
         cName: "nav-links-mobile"
     }
 ]

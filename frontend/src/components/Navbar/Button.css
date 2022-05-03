@@ -1,0 +1,15 @@
+.button {
+    padding: 8px 20px; 
+    border-radius: 4px;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    margin: 10px 10px;
+}
+
+.button:hover {
+    padding: 8px 20px; 
+    transition: all 0.3s ease-out;
+    color: #6568f4;
+    transition: 250ms;
+}

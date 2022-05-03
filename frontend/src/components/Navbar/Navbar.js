@@ -1,9 +1,8 @@
-// /* eslint-disable */
 import React, {Component} from 'react';
-import { Button } from '../Button';
 import { MenuItems } from './MenuItems'
 import './Navbar.css'
 import './GameDisplay.css'
+import './Button.css'
 
 class Navbar extends Component {
 
@@ -27,7 +26,6 @@ class Navbar extends Component {
         console.log("this is the value on submit: ", value);
         this.componentDidMount();
     }
-
 
     componentDidMount = () => {
         console.log("submit on click component did mount works")
@@ -58,15 +56,19 @@ class Navbar extends Component {
                     </form>
                         {MenuItems.map((item, index) => {
                             return (
-                                <React.Fragment>
+                                <>
                                 <li key={index}>
                                     <a className={item.cName} href={item.url}> {item.title} </a>
                                 </li>
-                                </React.Fragment>
+                                </>
                             )
                         })}
-                    <Button>Sign Up</Button>
-                    <Button>Login</Button>
+                    <a href=''>
+                        <button className="button"> click me</button>
+                    </a>
+                    <a href='Login.js'>
+                        <button className="button"> me too</button>
+                    </a>
                 </div>
             <div className = "GameInformation">
                 { this.state.gameInfo && this.state.gameInfo.map((game) => 
