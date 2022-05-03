@@ -3,12 +3,25 @@ import React, {Component} from 'react';
 import { Button } from '../Button';
 import { MenuItems } from './MenuItems'
 import './Navbar.css'
+import LoginModal from 'react-login-modal'
 
 class Navbar extends Component {
 
     state = {
         gameInfo: [],
+        isOpen: false,
     }
+
+    openLogin = () => {
+        this.setState({isOpen: true});
+    }
+
+    closeLogin = () => {
+        this.setState({isOpen: false});
+    }
+
+    handleSignup = (username, email, password) => {};
+    handleLogin = (username, password) => {};
 
     //this is for the values within the searchbar
     getValue = (event) => {
@@ -66,9 +79,10 @@ class Navbar extends Component {
                             )
                         })}
                     <Button>Sign Up</Button>
-                    <Button>Login</Button>
+                    <Button onClick={this.openLogin}>Log In</Button>
                 </div>
             </div>
+            {this.state.isOpen ? <LoginModal handleLogin={this.handleLogin}/> : null}
             <div className = "GameInformation">
                 { this.state.gameInfo && this.state.gameInfo.map((game) => 
                     <>
