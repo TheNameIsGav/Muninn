@@ -18,6 +18,7 @@ function escapeRegExp(string) {
   return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
+
 /*
 display_user - Leah
 browse_games 
@@ -28,11 +29,7 @@ add_wishlist_game - Gabriel
 add_friend - Gabriel
 */
 
-
-//Default renderer, but I am p sure that we don't use this?
-app.get('/', (req, res) => {
-    res.render("index");
-  });
+app.get('/', (req, res) => res.sendFile(path.resolve(__dirname, "frontend/build", "index.html")));
 
 //Add a user-defined game to the database
 app.post('/add_game', async (req, res) => {
@@ -200,6 +197,9 @@ app.get('/search_game/:search_query', async (request, response) => {
 
   //Builds regex expression to search for similar names based on the query
   var reg = new RegExp(search, 'i')
+
+  console.log("waiting for mongo")
+
   var matchingGames = JSON.stringify(await Game.findOne({title: {$regex: reg}}).exec());
 
   response.send(matchingGames);

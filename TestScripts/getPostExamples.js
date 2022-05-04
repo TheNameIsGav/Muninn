@@ -24,17 +24,17 @@ request.post(postConfig, postSuccessHandler);
 //Example Get Request =========================
 //url/search_game is the router, and then /just dance is the query. Also can use things like /animal crossing, /doom, etc
 //As of april 23rd at noon, just dance is the only thing in the test database
-
+*/
 
 request({url:"http://localhost:8000/search_game/league of legends"}, function(err, response, body) {
   if(err) { console.log(err); return; }
   console.log("Get response code " + response.statusCode + " with text: " + response.body);
 });
-*/
 
 
+/*
 request({url: "http://localhost:8000/serve_default_games"}, function(err, response, body) {
   console.log("Get response code " + response.statusCode + " with text: " + response.body);
-});
+});*/
 
 //================================================
