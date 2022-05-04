@@ -1,7 +1,9 @@
-import React from 'react';
+import React, {Component} from 'react';
 
-function Profile() {
-    return<div> If you are here you can be here</div>
+class Profile extends Component {
+    render() {
+        return<div> If you are here you can be here</div>
+    }
 }
 
 export default Profile;

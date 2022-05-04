@@ -1,13 +1,18 @@
-import React from 'react';
+import React, {Component} from 'react';
 
-function Login() {
-    return (
-        <div>
-            <input type="text" placeholder='username'/>
-            <input type="text" placeholder='password'/>
-            <button> Login </button>
-        </div>
-    );
+class Login extends Component {
+    render() {
+        return (
+            <>
+            <div>
+                <input type="text" placeholder='username'/>
+                <input type="text" placeholder='password'/>
+                <button> Login </button>
+            </div>
+            </>
+           
+        );
+    }
 }
 
 export default Login

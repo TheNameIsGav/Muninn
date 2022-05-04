@@ -19,6 +19,7 @@ app.get('/', (req, res) => {
     res.render("index");
   });
 
+
 app.post('/add_game', (req, res) => {
   var title = req.body.title;
   var description = req.body.description;

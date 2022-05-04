@@ -4,6 +4,7 @@ import './Navbar.css'
 import './GameDisplay.css'
 import './Button.css'
 
+
 class Navbar extends Component {
 
     state = {
@@ -63,12 +64,6 @@ class Navbar extends Component {
                                 </>
                             )
                         })}
-                    <a href=''>
-                        <button className="button"> click me</button>
-                    </a>
-                    <a href='Login.js'>
-                        <button className="button"> me too</button>
-                    </a>
                 </div>
             <div className = "GameInformation">
                 { this.state.gameInfo && this.state.gameInfo.map((game) => 
