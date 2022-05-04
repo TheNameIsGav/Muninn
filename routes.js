@@ -20,7 +20,7 @@ function escapeRegExp(string) {
 
 /*
 display_user - Leah
-browse_games 
+browse_games
 search_users 
 display_profile - Leah
 add_library_game - Gabriel 
@@ -271,7 +271,19 @@ app.get('/display_profile/:id', async(request, response) => {
   response.send(JSON.stringify(user));
 });
 
+//Search for a game with 'search_query' and return the json string of that game - used for displaying the game after a search
+app.get('/search_user/:search_query', async (request, response) => {
 
+  var search = request.params.search_query.replace("_", " ");
+  search = escapeRegExp(search)
+
+  //Builds regex expression to search for similar names based on the query
+  var reg = new RegExp(search, 'i')
+  var matchingUser = JSON.stringify(await User.findOne({username: {$regex: reg}}).exec());
+
+  console.log(matchingUser);
+  response.send(matchingUser);
+});
 //Older version of serve_default_games
 // //sends all of the games in the database
 // app.get("/browse_games", async (request, response) => {
