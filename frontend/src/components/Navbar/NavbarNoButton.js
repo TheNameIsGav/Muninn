@@ -1,13 +1,11 @@
 import React, {Component} from 'react';
-import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import { MenuItems } from './MenuItems'
 import './Navbar.css'
 import './GameDisplay.css'
 import './Button.css'
 import Login from '../Login/Login';
-import Profile from '../Profile/Profile';
 
-class Navbar extends Component {
+class NavbarNoButton extends Component {
 
     state = {
         gameInfo: [],
@@ -48,7 +46,6 @@ class Navbar extends Component {
     render() {
         return(
             <>
-            <Router>
                 <div className='NavbarItems'>
                     <img className='navbar-logo' alt= "our Logo" src = "muninnLogo.png"/>
                     <form action="" className="example">
@@ -67,11 +64,6 @@ class Navbar extends Component {
                                 </>
                             )
                         })}
-
-                            <Link to="/Profile"> Profile </Link>
-                            <Link to="/Login"> Login </Link>
-                        {/* <button className="button" onClick={this.Login}> click me</button>
-                        <button className="button"> me too</button> */}
                 </div>
             <div className = "GameInformation">
                 { this.state.gameInfo && this.state.gameInfo.map((game) => 
@@ -85,17 +77,9 @@ class Navbar extends Component {
                     </>
                 )}
             </div>
-            <Switch>
-                <Route path='/Profile' component={Profile}/>
-                <Route path='/Login' component={Login}/>
-                <Route>
-                    <h1>not found</h1>
-                </Route>
-            </Switch>
-            </Router>
             </>
         )
     }
 }
 
-export default Navbar
+export default NavbarNoButton

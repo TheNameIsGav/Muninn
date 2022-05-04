@@ -42,7 +42,7 @@
 
     "nodemon": "^2.0.15",
 
-    "react-router-dom": "^6.3.0",
+    "react-router-dom": "^5.3.1",
 
     "request": "^2.88.2"
 
