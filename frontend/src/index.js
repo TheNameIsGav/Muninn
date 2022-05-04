@@ -2,8 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import Navbar from './components/Navbar/Navbar';
+import App from './App'
 
-ReactDOM.render(<Navbar/>,
+ReactDOM.render(<App/>,
   document.getElementById('root')
 );
 
