@@ -1,5 +1,7 @@
 # List of Muninn Functions
 
+The following is a list of functions used in Muninn and what they do. Muninn is death.
+
 ## Add Game
 `add_game` adds a user-defined game to the games database.
 
@@ -51,6 +53,8 @@ The function looks through the database of games and finds a game with the input
 
 ## Serve Default Games
 `serve_default_games` serves a list of game names to the frontend for searching through the database.
+
+This function gives a list of all games in the database so that the searchbar can give suggestions to users. It sends a 504 if things go wrong, and a 201 if things go smoothly.
 
 ## Add Game to Library
 `add_game_to_library` allows users to add a game to their library.

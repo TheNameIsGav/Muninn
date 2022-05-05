@@ -26,14 +26,18 @@ Muninn is death.
     > ```npm install dotenv```
 4. Run `npm install ejs` within your command line.
     > ```npm install ejs```
+5. Run `npm install @actions/core` within your command line.
+    > ```npm install @actions/core```
+6. Run `npm install nodemon` within your command line.
+    > ```npm install nodemon```
 
-5. Create an `.env` file in the root directory and add the following code: 
+7. Create an `.env` file in the root directory and add the following code: 
     ``` 
         USER_NAME=<insert database account username>
         USER_PASSWORD=<insert database account password>
     ```
     > make sure there are no spaces between the equal sign and your username and password! 
-6. Open `testDatabase.js` file and `run without debugging`.
+8. Open `testDatabase.js` file and `run without debugging`.
     - Ways to run the `testDatabase.js` file: 
       - Open the debugger on the side panel and click `launch Program`.
       - Click `FN5` to run the file
