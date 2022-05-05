@@ -1,41 +1,32 @@
 import React, { useState } from 'react';
 import './Login.css'
 
-var request = require('request'),
-postData = {},
-postConfig = {},
-postSuccessHandler = null;
-
-
-
-
-function LoginForm({ Login, error}) {
-    const [details, setDetails] = useState({ name: "", email: "", password: ""})
+function LoginForm({ Login, error, id}) {
+    const [details, setDetails] = useState({ name: "", password: "", email: ""})
+    const loginId = 0;
 
     const submitHandler = e => {
         e.preventDefault();
-        console.log("this is detail.name: ", details.name);
-        console.log("this is detail.email: ", details.email);
-        console.log("this is detail.password: ", details.password);
 
         Login(details)
 
-        // postData = { username: details.name, password: details.password, email: details.email}
+        var postData = { username: details.name, password: details.password, email: details.email}
 
-        // postConfig = {
-        //     url: 'http://localhost:5000/api/login',
-        //     form: postData
-        // }
-
-        // postSuccessHandler = function (err, response, body) {
-        //     console.log('JSON response from the server: ' + body + ' with status code ' + response.statusCode)
-        // }
-
-        fetch('http://localhost:5000/api/login', {
+        const requestOptions = {
             method: 'POST',
-            form: { username: details.name, email: details.email, password: details.password },
-        }).then(() => {
-            console.log("user checked")
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(postData)
+        };
+
+        fetch('/api/login', requestOptions).then(
+            res => res.text()).then(text => {
+                if(text === "Username not found"){
+                    //INvalid user
+                } else if(text === "Password mismatch") {
+                    //invalid user
+                } else {
+                    //valid user
+                }
         })
     }
 
