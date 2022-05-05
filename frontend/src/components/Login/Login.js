@@ -1,22 +1,42 @@
 import React, { useState } from 'react';
 import './Login.css'
 
+var request = require('request'),
+postData = {},
+postConfig = {},
+postSuccessHandler = null;
+
+
+
+
 function LoginForm({ Login, error}) {
     const [details, setDetails] = useState({ name: "", email: "", password: ""})
 
     const submitHandler = e => {
         e.preventDefault();
         console.log("this is detail.name: ", details.name);
+        console.log("this is detail.email: ", details.email);
+        console.log("this is detail.password: ", details.password);
 
         Login(details)
 
-        fetch('http://localhost:8000/login', {
+        // postData = { username: details.name, password: details.password, email: details.email}
+
+        // postConfig = {
+        //     url: 'http://localhost:5000/api/login',
+        //     form: postData
+        // }
+
+        // postSuccessHandler = function (err, response, body) {
+        //     console.log('JSON response from the server: ' + body + ' with status code ' + response.statusCode)
+        // }
+
+        fetch('http://localhost:5000/api/login', {
             method: 'POST',
-            body: { username: details.name, email: details.email, password: details.password },
+            form: { username: details.name, email: details.email, password: details.password },
         }).then(() => {
             console.log("user checked")
         })
-
     }
 
     return(

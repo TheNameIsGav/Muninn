@@ -1,6 +1,4 @@
-// /* eslint-disable */
 import React, {Component} from 'react';
-import { Button } from '../Button';
 import { MenuItems } from './MenuItems'
 import './Navbar.css'
 import LoginModal from 'react-login-modal'
@@ -22,27 +20,12 @@ class Navbar extends Component {
         },
         isOpen: false,
     }
-
-    // openLogin = () => {
-    //     this.setState({isOpen: true});
-    // }
-
-    // closeLogin = () => {
-    //     this.setState({isOpen: false});
-    // }
-
-    // handleSignup = (username, email, password) => {};
-    // handleLogin = (username, password) => {};
-
-    //this is for the values within the searchbar
     getValue = (event) => {
         this.setState({ value: event.target.value })
 
         console.log("event: ", event.target.value);
     }
 
-
-    //this is for the onClick of submit
     handleSubmit = (event) => {
         event.preventDefault();
         const value = this.state.value;
