@@ -24,16 +24,16 @@ Muninn is death.
     > ```npm install mongoDB```
 3. Run `npm install dotenv` within your command line.
     > ```npm install dotenv```
+4. Run `npm install ejs` within your command line.
+    > ```npm install ejs```
 
->TO DO - user needs to install ejs package as well
-
-4. Create an `.env` file in the root directory and add the following code: 
+5. Create an `.env` file in the root directory and add the following code: 
     ``` 
         USER_NAME=<insert database account username>
         USER_PASSWORD=<insert database account password>
     ```
     > make sure there are no spaces between the equal sign and your username and password! 
-5. Open `testDatabase.js` file and `run without debugging`.
+6. Open `testDatabase.js` file and `run without debugging`.
     - Ways to run the `testDatabase.js` file: 
       - Open the debugger on the side panel and click `launch Program`.
       - Click `FN5` to run the file
