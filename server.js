@@ -233,18 +233,13 @@ app.post('/api/add_review', async (req, res) => {
 
 //Gets the game along with reviews for a game based on the id of that game
 app.get('/api/view_game/:id', async (request, response) => {
-  var game = Game.findById(request.params.id).populate('reviews').exec(function (err, game){
-    if (err) return console.log(err);
-   
-  }); 
-
-  response.send(game);
+  var game = await Game.findById(request.params.id).populate('reviews').exec(); 
+  response.send(JSON.stringify(game)).status(201);
 });
 
 //Search for a game with 'search_query' and return the json string of that game - used for displaying the game after a search
 app.get('/api/search_game/:search_query', async (request, response) => {
 
-  console.log("hit backend")
   //Original Author: Gabriel
   var search = request.params.search_query.replace("_", " ");
   search = escapeRegExp(search)
@@ -255,15 +250,6 @@ app.get('/api/search_game/:search_query', async (request, response) => {
   var matchingGames = JSON.stringify(await Game.findOne({title: {$regex: reg}}).exec());
 
   response.send(matchingGames).status(201);
-});
-
-//Get and display information about a game via it's ID
-app.get('/api/display_game/:id', async(request, response) => {
-  var game = Game.findById(request.params.id).exec(function(err, game) {
-    if(err) return console.log(err);
-  });
-
-  response.send(JSON.stringify(game)).status(201);
 });
 
 //Serve a list of games names to the frontend for searching through the database. 
@@ -339,7 +325,6 @@ app.get('/api/display_profile/:id', async(request, response) => {
 
   //TODO decide what information we want other users to see for each profile 
   var user = await User.findById(request.params.id).populate('friends reviews library').select('username email friends reviews library').exec();
-  console.log(user);
   response.send(JSON.stringify(user));
 });
 
