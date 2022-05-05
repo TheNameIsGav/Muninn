@@ -43,16 +43,13 @@ class Navbar extends Component {
 
     componentDidMount = () => {
         console.log("submit on click component did mount works")
-        const firstValue = 'http://localhost:8000/search_game/'
+        const firstValue = 'http://localhost:5000/search_game/'
         let searchedTerm = this.state.value
         let fullURL = firstValue.concat(searchedTerm)
         fetch(fullURL)
             .then((res) => res.json())
             .then((data) => {
                 this.setState({ gameInfo: data})
-            })
-            .catch(() => {
-                alert("game not found");
             });
     }
 

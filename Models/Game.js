@@ -16,10 +16,6 @@ const GameSchema = new Schema ({
     developer: {
         type: String
     },
-    art: {
-        data: Buffer,
-        contentType: String
-    },
     tags: [{
         type: String,
         enum: ["beginner", "advanced", "sports", "action", "adventure", "strategy", "puzzle", "role-play", "simulation", "competitive", "cooperative", "fighting", "music", "dance", "social", "multiplayer", "singleplayer", "calming", "fps", "moba"]

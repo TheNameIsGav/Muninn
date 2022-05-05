@@ -26,7 +26,7 @@ request.post(postConfig, postSuccessHandler);
 //As of april 23rd at noon, just dance is the only thing in the test database
 */
 
-request({url:"http://localhost:8000/search_game/league of legends"}, function(err, response, body) {
+request({url:"http://localhost:5000/search_game/league of legends"}, function(err, response, body) {
   if(err) { console.log(err); return; }
   console.log("Get response code " + response.statusCode + " with text: " + response.body);
 });
