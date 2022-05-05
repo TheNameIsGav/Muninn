@@ -17,7 +17,7 @@ postSuccessHandler = function (err, httpResponse, body) {
     console.log('JSON response from the server: ' + body)
 }
 //Dont uncomment request.post unless you want to actually add data
-request.post(postConfig, postSuccessHandler);
+// request.post(postConfig, postSuccessHandler);
 //=============================================
 
 

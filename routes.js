@@ -252,6 +252,13 @@ app.get('/display_profile/:id', async(request, response) => {
   response.send(JSON.stringify(user));
 });
 
+//Sends certain fields (objectID, title, rating, tags) of all games in the database to be listed
+//sending objectID allows game to link to view_game/id  
+app.get('/browse_games', async (request, response) => {
+  const games = await Game.find({}).select('_id title rating tags').exec();
+  console.log(games);
+  response.send(JSON.stringify(games));
+})
 
 
 //Older version of serve_default_games
@@ -270,4 +277,4 @@ app.get('/display_profile/:id', async(request, response) => {
 
 
 module.exports = app;
-//remember to remind group to install do "npm i --s concurrently" and "cd frontend; npm install react"
+//https://expressjs.com/en/guide/routing.html

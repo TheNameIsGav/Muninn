@@ -6,6 +6,7 @@ import './GameDisplay.css'
 import './Button.css'
 import Login from '../Login/Login';
 import Profile from '../Profile/Profile';
+import { useHistory } from 'react-router-dom';
 
 class Navbar extends Component {
 
@@ -82,9 +83,6 @@ class Navbar extends Component {
             <Switch>
                 <Route path='/Profile' component={Profile}/>
                 <Route path='/Login' component={Login}/>
-                <Route>
-                    <h1>not found</h1>
-                </Route>
             </Switch>
             </Router>
             </>

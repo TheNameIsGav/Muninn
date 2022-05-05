@@ -24,6 +24,8 @@
     
     "axios": "^0.26.1",
 
+    "bcrypt": "^5.0.1",
+
     "body-parser": "^1.20.0",
 
     "concurrently": "^7.1.0",
