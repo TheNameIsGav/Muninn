@@ -54,7 +54,7 @@ mongoose.connection.on('error', function (err) {
 })
 
 //Get request to see if we are connected to the database
-app.get('/database', async (req, res) => {
+app.get('/api/database', async (req, res) => {
   res.end().status(serverConnection);
 })
 
@@ -86,7 +86,7 @@ add_friend - Gabriel
 // });
 
 //Add a user-defined game to the database
-app.post('/add_game', async (req, res) => {
+app.post('/api/add_game', async (req, res) => {
   var {title, publisher, tags, platforms} = req.body; 
   
   //Checks to see if all the requirements for the game are in place
@@ -126,7 +126,7 @@ app.post('/add_game', async (req, res) => {
 
 //Add's user to the list of all users
 //Returns 401 in the case of a failure, or a 201 with the ID of the user
-app.post('/add_user', async (req, res) => {
+app.post('/api/add_user', async (req, res) => {
 
   const {username, password, email} = req.body;
 
@@ -162,7 +162,7 @@ app.post('/add_user', async (req, res) => {
 });
 
 //Returns 401 in the case of a failure, or a 201 with the ID of the user
-app.post('/login', async (req, res) => {
+app.post('/api/login', async (req, res) => {
   const {username, password, email } = req.body;
 
   //Figure out if the previous username exists, and if it does, then check the passwords. If they match, send the user
@@ -187,7 +187,7 @@ app.post('/login', async (req, res) => {
 
 
 //Add a review to a specific game, by a specific user; has both user and game link to review
-app.post('/add_review', async (req, res) => {
+app.post('/api/add_review', async (req, res) => {
   var userId = req.body.userId;
   var gameId = req.body.gameId;
   var desc = req.body.desc;
@@ -234,7 +234,7 @@ app.post('/add_review', async (req, res) => {
 });
 
 //Gets the game along with reviews for a game based on the id of that game
-app.get('/view_game/:id', async (request, response) => {
+app.get('/api/view_game/:id', async (request, response) => {
   var game = Game.findById(request.params.id).populate('reviews').exec(function (err, game){
     if (err) return console.log(err);
    
@@ -244,7 +244,7 @@ app.get('/view_game/:id', async (request, response) => {
 });
 
 //Search for a game with 'search_query' and return the json string of that game - used for displaying the game after a search
-app.get('/search_game/:search_query', async (request, response) => {
+app.get('/api/search_game/:search_query', async (request, response) => {
 
   console.log("hit backend")
   //Original Author: Gabriel
@@ -260,7 +260,7 @@ app.get('/search_game/:search_query', async (request, response) => {
 });
 
 //Get and display information about a game via it's ID
-app.get('/display_game/:id', async(request, response) => {
+app.get('/api/display_game/:id', async(request, response) => {
   var game = Game.findById(request.params.id).exec(function(err, game) {
     if(err) return console.log(err);
   });
@@ -308,7 +308,7 @@ app.get('/api/shit', (req, res) => {
   res.send("shit");
 })
 
-app.post('/add_game_to_library', async (req, res) => {
+app.post('/api/add_game_to_library', async (req, res) => {
   //Original Author: Gabriel
   const {userID, gameID} = req.body;
   var user = await User.findById(userID);
@@ -329,7 +329,7 @@ app.post('/add_game_to_library', async (req, res) => {
 
 
 //gets user by user id and populates different fields to return all user information
-app.get('/display_user/:id', async(request, response) => {
+app.get('/api/display_user/:id', async(request, response) => {
   //Original Author: Leah
 
   var user =  await User.findById(request.params.id).populate('friends reviews wishlist library suggested').exec();
@@ -337,7 +337,7 @@ app.get('/display_user/:id', async(request, response) => {
 });
 
 //gets profile to be displayed by user id and populates certain fields to return relevant profile information
-app.get('/display_profile/:id', async(request, response) => {
+app.get('/api/display_profile/:id', async(request, response) => {
   //Original Author: Leah
 
   //TODO decide what information we want other users to see for each profile 
