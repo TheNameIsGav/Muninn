@@ -23,16 +23,16 @@ class Navbar extends Component {
         isOpen: false,
     }
 
-    openLogin = () => {
-        this.setState({isOpen: true});
-    }
+    // openLogin = () => {
+    //     this.setState({isOpen: true});
+    // }
 
-    closeLogin = () => {
-        this.setState({isOpen: false});
-    }
+    // closeLogin = () => {
+    //     this.setState({isOpen: false});
+    // }
 
-    handleSignup = (username, email, password) => {};
-    handleLogin = (username, password) => {};
+    // handleSignup = (username, email, password) => {};
+    // handleLogin = (username, password) => {};
 
     //this is for the values within the searchbar
     getValue = (event) => {
@@ -91,31 +91,17 @@ class Navbar extends Component {
                                 </React.Fragment>
                             )
                         })}
-                    <Button>Sign Up</Button>
-                    <Button onClick={this.openLogin}>Log In</Button>
+                    {/* <Button>Sign Up</Button>
+                    <Button onClick={this.openLogin}>Log In</Button> */}
                 </div>
             </div>
             {this.state.isOpen ? <LoginModal handleLogin={this.handleLogin}/> : null}
             <div className = "GameInformation">
-                    <>
-                    <p id = "game_id">{this.state.gameInfo._id}</p>
-                    <p id = "game_title">{this.state.gameInfo.title}</p>
-                    <p id = "game_desc">{this.state.gameInfo.description}</p>
-                    </>
-                
-
-
-                {/* {(this.state.gameInfo === 'undefined') ? (
-                    <p> Loading....</p>
-                ) : (
-                this.state.gameInfo.map((gameInfo) => 
-                { return(
-                        <>
-                        <p> ID: {JSON.stringify(gameInfo._id)}</p>
-                        <p> title: {JSON.stringify(gameInfo.title)}</p>
-                        </>
-                    );
-                }))} */}
+                <>
+                <p id = "game_id">{this.state.gameInfo._id}</p>
+                <p id = "game_title">{this.state.gameInfo.title}</p>
+                <p id = "game_desc">{this.state.gameInfo.description}</p>
+                </>
             </div>
             </>
         )
