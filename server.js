@@ -161,7 +161,12 @@ app.post('/api/add_user', async (req, res) => {
 
 //Returns 401 in the case of a failure, or a 201 with the ID of the user
 app.post('/api/login', async (req, res) => {
+
   const {username, password, email } = req.body;
+
+  // var user = await User.findOne({username: username}).exec();
+
+  // console.log(user)
 
   //Figure out if the previous username exists, and if it does, then check the passwords. If they match, send the user
   await User.findOne(
@@ -171,10 +176,11 @@ app.post('/api/login', async (req, res) => {
       return res.send("Username not found").status(401);
     } else {
       bcrypt.compare(req.body.password, user.password, (error, result) => {
+        
         if(result) {
           res.send(user._id).status(201);
         } else {
-          return res.send("Password mismatch").status(401);
+          res.send("Password mismatch").status(401);
         }
       });
     }
