@@ -6,7 +6,6 @@ import './GameDisplay.css'
 import './Button.css'
 import Login from '../Login/Login';
 import Profile from '../Profile/Profile';
-import { useHistory } from 'react-router-dom';
 
 class Navbar extends Component {
 
@@ -72,7 +71,7 @@ class Navbar extends Component {
                 { this.state.gameInfo && this.state.gameInfo.map((game) => 
                     <>
                     <p>
-                        <img src= {game.image} alt="game picture" id ="image"/>
+                        <img src= {game.image} alt="game" id ="image"/>
                         <h3 id = "game_title">{game.title}</h3>
                         <h3 id = "game_id">{game._id}</h3>
                         <h3 id = "game_desc">{game.description}</h3>

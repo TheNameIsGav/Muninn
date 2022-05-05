@@ -1,4 +1,4 @@
-import React, { useState, setState } from 'react';
+import React, { useState } from 'react';
 import Navbar from './components/Navbar/Navbar';
 import LoginForm from './components/Login/Login';
 import './App.css'
@@ -27,7 +27,7 @@ function App(){
         //     console.log('JSON response from the server: ' + body)
         // }
 
-        if(details.email == adminUser.email && details.password == adminUser.password){
+        if(details.email === adminUser.email && details.password === adminUser.password){
             console.log("logged in")
             setUser({
                 name: details.name, 
@@ -47,7 +47,7 @@ function App(){
         <>
         <Navbar/>
         <div className='App'>
-            {(user.email !="")? (
+            {(user.email !== "")? (
                 <div className="welcome">
                     <h2> Welcome <span>{user.name}</span></h2>
                     <button onClick={Logout}> Logout </button>

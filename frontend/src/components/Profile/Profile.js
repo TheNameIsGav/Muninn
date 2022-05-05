@@ -1,6 +1,4 @@
 import React from 'react';
-import NavbarNoButton from '../Navbar/NavbarNoButton';
-
 
 function Profile() {
     return(

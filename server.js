@@ -9,7 +9,9 @@ const bodyParser = require("body-parser");
 
 //NodeJS Server Setup
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: '*'
+}));
 
 let port = process.env.PORT;
 if (port == null || port == "") {

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 
-
 function LoginForm({ Login, error}) {
     const [details, setDetails] = useState({ name: "", email: "", password: ""})
 
@@ -10,9 +9,9 @@ function LoginForm({ Login, error}) {
 
         Login(details)
 
-        fetch('http://localhost:8000/login/', {
+        fetch('http://localhost:8000/login', {
             method: 'POST',
-            headers: { username: details.name},
+            body: { username: details.name, email: details.email, password: details.password },
         }).then(() => {
             console.log("user checked")
         })
@@ -22,8 +21,7 @@ function LoginForm({ Login, error}) {
     return(
         <form onSubmit={submitHandler}>
             <div className='form-inner'>
-                <h2></h2>
-                {(error !="") ? ( <div className="error">{error}</div>): ""}
+                {(error !=="") ? ( <div className="error">{error}</div>): ""}
                 <div className='form-group'>
                     <label htmlFor="name"> Name: </label>
                     <input type="text" name="name" id="name" onChange={e => setDetails({...details, name: e.target.value})} value={details.name}/>
