@@ -254,7 +254,7 @@ app.get('/api/search_game/:search_query', async (request, response) => {
 
   var matchingGames = JSON.stringify(await Game.findOne({title: {$regex: reg}}).exec());
 
-  response.send(matchingGames);
+  response.send(matchingGames).status(201);
 });
 
 //Get and display information about a game via it's ID
@@ -263,18 +263,17 @@ app.get('/api/display_game/:id', async(request, response) => {
     if(err) return console.log(err);
   });
 
-  response.send(JSON.stringify(game));
+  response.send(JSON.stringify(game)).status(201);
 });
 
 //Serve a list of games names to the frontend for searching through the database. 
 app.get('/api/serve_default_games', async (request, response) => {
-  console.log("Hit backend")
   //Original Author: Gabriel
   var gamesComplexArray = await Game.find({}).select('title');
 
   if(gamesComplexArray.length == 0){
     console.log("we shouldn't have gotten here");
-    response.send("");
+    response.send("").status(504);
   }
 //TODO convert this into a dictionary of title: _id
   var gamesSimpleArray = {};

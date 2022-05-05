@@ -7,8 +7,19 @@ import LoginModal from 'react-login-modal'
 
 class Navbar extends Component {
 
+    constructor(props) {
+        super(props);
+
+        this.searchItem = this.searchItem.bind(this)
+    }
+
     state = {
-        gameInfo: [],
+        gameInfo: {
+            _id: 0,
+            title: "",
+            description: "",
+            tags: []
+        },
         isOpen: false,
     }
 
@@ -37,20 +48,25 @@ class Navbar extends Component {
         const value = this.state.value;
 
         console.log("this is the value on submit: ", value);
-        this.componentDidMount();
+        this.searchItem();
     }
 
+    searchItem = () => {
+        console.log("Search for item after enter works")
+
+        fetch('/api/search_game/' + this.state.value).then(res => res.text())
+            .then(text => {
+            try {
+                var game = JSON.parse(text);
+                this.setState({gameInfo: game})
+            } catch (e) {
+                console.log("error")
+            }
+        });
+    }
 
     componentDidMount = () => {
-        console.log("submit on click component did mount works")
-        const firstValue = 'http://localhost:5000/search_game/'
-        let searchedTerm = this.state.value
-        let fullURL = firstValue.concat(searchedTerm)
-        fetch(fullURL)
-            .then((res) => res.json())
-            .then((data) => {
-                this.setState({ gameInfo: data})
-            });
+        
     }
 
     render() {
@@ -81,13 +97,11 @@ class Navbar extends Component {
             </div>
             {this.state.isOpen ? <LoginModal handleLogin={this.handleLogin}/> : null}
             <div className = "GameInformation">
-                { this.state.gameInfo && this.state.gameInfo.map((game) => 
                     <>
-                    <p id = "game_id">{game._id}</p>
-                    <p id = "game_title">{game.title}</p>
-                    <p id = "game_desc">{game.description}</p>
+                    <p id = "game_id">{this.state.gameInfo._id}</p>
+                    <p id = "game_title">{this.state.gameInfo.title}</p>
+                    <p id = "game_desc">{this.state.gameInfo.description}</p>
                     </>
-                )}
                 
 
 
