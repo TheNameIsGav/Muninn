@@ -12,12 +12,10 @@ const bcrypt = require('bcrypt')
 const path = require('path');
 var cors = require('cors');
 
-const generatePassword = require('password-generator');
-
 const app = express();
 
 // Serve static files from the React app
-app.use(express.static(path.join(__dirname, 'client/build')));
+app.use(express.static(path.join(__dirname, 'frontend/build')));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(cors())
