@@ -20,6 +20,8 @@ class Navbar extends Component {
             image: "",
             tags: [], 
             rating: 0,
+            publisher: "",
+            platforms: ""
         },
         isOpen: false,
     }
@@ -92,12 +94,14 @@ class Navbar extends Component {
                     <span class="fa fa-star checked"></span>
                     <span class="fa fa-star"></span>
                     <span class="fa fa-star"></span>
+                <p id = "game_desc">{this.state.gameInfo.description}</p>
                 <p id="tags" className="tagTitle">TAGS: {this.state.gameInfo.tags && this.state.gameInfo.tags.map((tag, i) => 
                     <>
                         <button key={i} className="button medium-btn">{tag}</button>
                     </>
                 )}</p>
-                <p id = "game_desc">{this.state.gameInfo.description}</p>
+                <div className="boxed">Publisher: {this.state.gameInfo.publisher} <br></br> Platform: {this.state.gameInfo.platforms} </div>
+                {/* <div className="boxed"> </div> */}
                 </>
             </div>
             </>
