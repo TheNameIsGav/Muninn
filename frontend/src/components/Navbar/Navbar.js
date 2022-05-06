@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { MenuItems } from './MenuItems'
 import './Navbar.css'
+import './DisplayGame.css'
 import LoginModal from 'react-login-modal'
 
 class Navbar extends Component {
@@ -16,7 +17,9 @@ class Navbar extends Component {
             _id: 0,
             title: "",
             description: "",
-            tags: []
+            image: "",
+            tags: [], 
+            rating: 0,
         },
         isOpen: false,
     }
@@ -48,10 +51,6 @@ class Navbar extends Component {
         });
     }
 
-    componentDidMount = () => {
-        
-    }
-
     render() {
         return(
             <>
@@ -74,15 +73,30 @@ class Navbar extends Component {
                                 </React.Fragment>
                             )
                         })}
-                    {/* <Button>Sign Up</Button>
-                    <Button onClick={this.openLogin}>Log In</Button> */}
                 </div>
             </div>
             {this.state.isOpen ? <LoginModal handleLogin={this.handleLogin}/> : null}
             <div className = "GameInformation">
                 <>
-                <p id = "game_id">{this.state.gameInfo._id}</p>
-                <p id = "game_title">{this.state.gameInfo.title}</p>
+                <nav>
+                    <button className='button big-btn'> Add to Wishlist</button>
+                    <button className='button big-btn'> Add to Library </button>
+                </nav>
+                <img src= {this.state.gameInfo.image} id="image" className="image"/>
+                <p id = "game_title" className="gameTitle">{this.state.gameInfo.title}</p>
+                <p id = "game_id" className="gameID">{this.state.gameInfo._id}</p>
+                <p id = "rating" className="ratingGame">{this.state.gameInfo.rating}/5</p>
+                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span>
+                <p id="tags" className="tagTitle">TAGS: {this.state.gameInfo.tags && this.state.gameInfo.tags.map((tag, i) => 
+                    <>
+                        <button key={i} className="button medium-btn">{tag}</button>
+                    </>
+                )}</p>
                 <p id = "game_desc">{this.state.gameInfo.description}</p>
                 </>
             </div>

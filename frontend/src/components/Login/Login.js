@@ -8,8 +8,6 @@ function LoginForm({ Login, error, id}) {
     const submitHandler = e => {
         e.preventDefault();
 
-        Login(details)
-
         var postData = { username: details.name, password: details.password, email: details.email}
 
         const requestOptions = {
@@ -21,11 +19,22 @@ function LoginForm({ Login, error, id}) {
         fetch('/api/login', requestOptions).then(
             res => res.text()).then(text => {
                 if(text === "Username not found"){
-                    //INvalid user
+                    alert("Username not found")
                 } else if(text === "Password mismatch") {
-                    //invalid user
+                    alert("Password mismatch")
                 } else {
-                    //valid user
+                    setDetails({
+                        name: details.name, 
+                        email: details.email
+                    });
+                    return(
+                        <div className='App'>
+                            <div className="welcome">
+                                <h2> Welcome <span>{details.name}</span></h2>
+                                {/* <button onClick={Logout}> Logout </button> */}
+                            </div>
+                        </div>
+                    )
                 }
         })
     }
