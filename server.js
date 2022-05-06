@@ -162,7 +162,6 @@ app.post('/api/add_user', async (req, res) => {
 //Returns 401 in the case of a failure, or a 201 with the ID of the user
 app.post('/api/login', async (req, res) => {
   const {username, password, email } = req.body;
-
   //Figure out if the previous username exists, and if it does, then check the passwords. If they match, send the user
   await User.findOne(
     {username: username}

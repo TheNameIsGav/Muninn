@@ -1,0 +1,80 @@
+.GameInformation .image {
+    margin-left:2%;
+    float:left; 
+    height:50%;
+    width:50%;	
+    padding: 10px;
+}
+
+.gameTitle {
+    font-size: 40px;
+    border-top: 10px;
+}
+
+.gameID{
+    padding-bottom: 20px;
+    color: grey;
+}
+
+.checked {
+    color: orange;
+}
+
+.button {
+    margin-left:2%;
+    border-left: 10px;
+    background-color: #88b7c4;
+    border: none;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    border-radius: 12px;
+}
+  
+.button:hover {
+    background-color: #19702295;
+    border: none;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    border-radius: 12px;
+    transition: 0.4s;
+}
+
+.big-btn {
+    width: 130px;
+    height: 70px;
+}
+
+.medium-btn {
+    width: 140px;
+    height: 50px;
+    background-color: #a6c798;
+    text-align: center;
+    font-size: 14px;
+}
+
+.medium-btn:hover {
+    width: 140px;
+    height: 50px;
+    background-color: #ca9e4595;
+    text-align: center;
+    font-size: 14px;
+}
+
+.tag .medium-btn {
+    width: 70px;
+    height: 30px;
+}
+
+.tagTitle {
+    padding-top: 20px;
+}
