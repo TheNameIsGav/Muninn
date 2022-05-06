@@ -29,6 +29,11 @@ class Navbar extends Component {
         console.log("event: ", event.target.value);
     }
 
+    componentDidMount() {
+        this.setState({value: "Doom"});
+        this.searchItem()
+    }
+
     handleSubmit = (event) => {
         event.preventDefault();
         const value = this.state.value;

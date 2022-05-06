@@ -3,7 +3,7 @@ import './Login.css'
 
 function LoginForm({ Login, error, id}) {
     const [details, setDetails] = useState({ name: "", password: "", email: ""})
-    const loginId = 0;
+    const [loginId, setLoginDetails] = useState({id: 0});
 
     const submitHandler = e => {
         e.preventDefault();
@@ -18,15 +18,22 @@ function LoginForm({ Login, error, id}) {
 
         fetch('/api/login', requestOptions).then(
             res => res.text()).then(text => {
+                console.log(text)
                 if(text === "Username not found"){
                     alert("Username not found")
                 } else if(text === "Password mismatch") {
                     alert("Password mismatch")
                 } else {
+                    console.log(details.name)
+                    console.log(details.email)
+
                     setDetails({
-                        name: details.name, 
-                        email: details.email
+                        name: postData.username, 
+                        email: postData.email
                     });
+                    setLoginDetails({
+                        id: text
+                    })
                     return(
                         <div className='App'>
                             <div className="welcome">
