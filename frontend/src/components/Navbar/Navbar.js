@@ -30,7 +30,7 @@ class Navbar extends Component {
     }
 
     componentDidMount() {
-        this.setState({value: "Doom"});
+        this.state.value = "Doom";
         this.searchItem()
     }
 
