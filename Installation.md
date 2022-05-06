@@ -29,8 +29,4 @@ Muninn is death.
         USER_PASSWORD=<insert database account password>
     ```
     > make sure there are no spaces between the equal sign and your username and password! 
-4. Open `testDatabase.js` file and `run without debugging`.
-    - Ways to run the `testDatabase.js` file: 
-      - Open the debugger on the side panel and click `launch Program`.
-      - Click `FN5` to run the file
   
