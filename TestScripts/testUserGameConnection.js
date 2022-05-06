@@ -3,20 +3,20 @@ postData = {},
 postConfig = {},
 postSuccessHandler = null;
 
-// //Example Post Request =========
-// postData = {userID : "626d6d4177788fade82dfae5", gameID: "626c096ae6cded8304d01d23"}
+/* Test Login interfacing
+postData = {username : "Gavin the Gav", password : "test2password", email: "arealemail@muninn.com"}
 
-// postConfig = {
-//     url: 'http://localhost:8000/add_game_to_library',
-//     form: postData
-// }
+postConfig = {
+    url: 'http://localhost:5000/api/login',
+    form: postData
+}
 
-// postSuccessHandler = function (err, response, body) {
-//     console.log('JSON response from the server: ' + body + ' with status code ' + response.statusCode)
-// }
-// //Dont uncomment request.post unless you want to actually add data
-// request.post(postConfig, postSuccessHandler);
-//=============================================
+postSuccessHandler = function (err, response, body) {
+    console.log('JSON response from the server: ' + body + ' with status code ' + response.statusCode)
+}
+//Dont uncomment request.post unless you want to actually add data
+request.post(postConfig, postSuccessHandler);
+*/
 
 
 //Example Get Request =========================
