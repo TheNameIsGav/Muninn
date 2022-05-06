@@ -67,7 +67,7 @@
     height: 50px;
     background-color: #ca9e4595;
     text-align: center;
-    font-size: 14px;
+    font-size: 18px;
 }
 
 .tag .medium-btn {
@@ -77,4 +77,13 @@
 
 .tagTitle {
     padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.boxed {
+    border: 1px solid green ;
+    overflow: hidden;
+    padding-right: 5px;
+    border-radius: 10px;
+    line-height:1.5em;
 }
