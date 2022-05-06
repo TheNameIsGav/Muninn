@@ -84,7 +84,7 @@
 }
   
   /* Style the search field */
-form.example input[type=text] {
+.example input[type=text] {
     float: left;
     align-self: center;
     width: 100%;
@@ -99,7 +99,7 @@ form.example input[type=text] {
 
   
   /* Style the submit button */
-  form.example button {
+.example button {
     float: right;
     width: 3.5rem;
     height: 2.8rem;
@@ -110,12 +110,12 @@ form.example input[type=text] {
 
   }
 
-  form.example button:hover {
+.example button:hover {
     outline: none;
   }
   
   /* Clear floats */
-  form.example::after {
+.example::after {
     content: "";
     clear: both;
     display: table;

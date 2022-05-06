@@ -8,7 +8,6 @@ function CreateAccount() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [passwordVerify, setPasswordVerify] = useState("");
-    const [redirect, setRedirect] = useState(null);
 
     let navigate = useNavigate();
 
@@ -31,20 +30,44 @@ function CreateAccount() {
             body: JSON.stringify(postData)
         };
 
+
         fetch('/api/add_user', requestOptions).then(
             res => res.text()).then(text => {
                 if(text.toLowerCase() === "found previously existing user"){
                     alert("Username or email already exists in the database, please login")
                     return;
                 } else {
-                    setRedirect('/about')
-                    navigate('/about', {replace: true})
+                    var modText = text.substring(1, text.length-1)
+                    continueRedirect(e, modText)
                 }
             }
         )
     }
 
-    return (                    
+    const continueRedirect = (e, text) => {
+        
+        fetch('/api/display_user/' + text).then(
+            res => res.text()).then(text => {
+                try {
+                    const userVal = JSON.parse(text)
+                    console.log(userVal)
+                    navigate('/profile', {replace: true, state:{userVal}})
+                } catch (error) {
+                    
+                }
+            }
+        )
+    }
+
+    const loginRedirect = (e) => {
+        navigate('/login', {replace: true})
+    }
+
+    return (                  
+        <>
+        <div id='buttons'>
+            <button id='login' onClick={loginRedirect}>Login</button>
+        </div>
         <div className='form'>
             <form onSubmit={submitHandler}>
                 <div className="form-inner">
@@ -59,12 +82,13 @@ function CreateAccount() {
                         <input type="password" placeholder="Password" name="password" id="password" value={password} onChange={evt => {setPassword(evt.target.value)}}/>
                     </div>
                     <div className='form-group'>
-                        <input type="password" placeholder='Verify Password' name='password' id='password' value={passwordVerify} onChange={evt => {setPasswordVerify(evt.target.value)}}/>
+                        <input type="password" placeholder='Verify Password' name='password2' id='password2' value={passwordVerify} onChange={evt => {setPasswordVerify(evt.target.value)}}/>
                     </div>
                     <input type="submit" value="CREATE ACCOUNT"/>
                 </div>
             </form>
         </div>
+        </>  
     )
 }
 

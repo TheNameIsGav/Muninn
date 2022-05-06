@@ -1,17 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './Searchbar.css'
 
 
-class Searchbar extends React.Component {
+function Searchbar() {
 
-    state = {
-        value: ''
-    }
-
-    getValue = (event) => {
-        this.setState({ value: event.target.value });
-    }
-
+    const [value, setValue] = useState("")
 
     handleSubmit = (event) => {
         event.preventDefault();

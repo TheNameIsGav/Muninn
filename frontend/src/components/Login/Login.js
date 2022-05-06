@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import './Login.css'
 
-function LoginForm({ Login, error, id}) {
+function LoginForm(props) {
+
+    let navigate = useNavigate();
     const [details, setDetails] = useState({ name: "", password: "", email: ""})
-    const [loginId, setLoginDetails] = useState({id: 0});
 
     const submitHandler = e => {
         e.preventDefault();
@@ -18,40 +20,48 @@ function LoginForm({ Login, error, id}) {
 
         fetch('/api/login', requestOptions).then(
             res => res.text()).then(text => {
-                console.log(text)
                 if(text === "Username not found"){
                     alert("Username not found")
                 } else if(text === "Password mismatch") {
                     alert("Password mismatch")
                 } else {
-                    console.log(details.name)
-                    console.log(details.email)
-
-                    setDetails({
-                        name: postData.username, 
-                        email: postData.email
-                    });
-                    setLoginDetails({
-                        id: text
-                    })
-                    return(
-                        <div className='App'>
-                            <div className="welcome">
-                                <h2> Welcome <span>{details.name}</span></h2>
-                                {/* <button onClick={Logout}> Logout </button> */}
-                            </div>
-                        </div>
-                    )
+                    fetchUserAccount(e, text)
                 }
         })
     }
 
+    const fetchUserAccount = (e, incText) => {
+        e.preventDefault()
+
+        var modText = incText.substring(1, incText.length-1)
+
+
+        fetch('/api/display_user/' + modText).then(
+            res => res.text()).then(text => {
+                try {
+                    const userVal = JSON.parse(text)
+                    navigate('/profile', {replace: true, state:{userVal}})
+                } catch (error) {
+                    
+                }
+            }
+        )
+        
+    }
+
+    const accountCreation = (e) => {
+        navigate('/', {replace: true})
+    }
+
     return(
+        <>
+        <div id='buttons'>
+            <button id='login' onClick={accountCreation}>Create Account</button>
+        </div>
         <div className='form'>
             <form onSubmit={submitHandler}>
                 <div className="form-inner">
                     <h2> Login </h2>
-                    {(error !=="") ? ( <div className="error">{error}</div>): ""}
                     <div className="form-group">
                         <input type="text" placeholder="Username" name="name" id="name"  onChange={e => setDetails({...details, name: e.target.value})} value={details.name}/>
                     </div>
@@ -65,6 +75,7 @@ function LoginForm({ Login, error, id}) {
                 </div>
             </form>
         </div>
+        </>
     )
 }
 

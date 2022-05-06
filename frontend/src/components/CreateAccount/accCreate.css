@@ -20,12 +20,25 @@ input, button {
     background-color: #d7edfa;
 }
 
-form {
+.form {
     display: block; 
     position: relative;
 }
 
-form:after {
+.buttons {
+    display: inline-block; 
+    padding: 10px 15px;
+    border-radius: 8px; 
+    background-image: linear-gradient(to right, #191027 50%, #13193e 50%, #6ca961);
+    background-size: 200%; 
+    background-position: 0%; 
+    transition: 0.4s;
+    color: rgb(150, 51, 51);
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.form:after {
     content: '';
     display: block; 
     position: absolute;
@@ -38,7 +51,7 @@ form:after {
 
 }
 
-form .form-inner {
+.form .form-inner {
     position: relative; 
     display: block; 
     background-color: rgb(181, 190, 179); 
@@ -47,14 +60,14 @@ form .form-inner {
 
 }
 
-form .form-inner h2 {
+.form .form-inner h2 {
     color: rgb(255, 255, 255); 
     font-size: 28px; 
     font-weight: 500;
     margin-bottom: 30px;
 }
 
-form .form-inner .form-group {
+.form .form-inner .form-group {
     display: block;
     width: 300px;
     margin-bottom: 15px;
@@ -72,7 +85,7 @@ form .form-inner .form-group {
     color: #dfffe4
 }
 
-form .form-inner .form-group input {
+.form .form-inner .form-group input {
     display: block; 
     width: 100%; 
     padding: 10px 15px; 
@@ -82,11 +95,11 @@ form .form-inner .form-group input {
 
 }
 
-form .form-inner .form-group input:focus{
+.form .form-inner .form-group input:focus{
     box-shadow: 0px 0px 3px rgba(0,0,0,0.2);
 }
 
-form .form-inner input[type="submit"] {
+.form .form-inner input[type="submit"] {
     display: inline-block; 
     padding: 10px 15px;
     border-radius: 8px; 
@@ -99,7 +112,7 @@ form .form-inner input[type="submit"] {
     cursor: pointer;
 }
 
-form .form-inner input[type="submit"]:hover {
+.form .form-inner input[type="submit"]:hover {
     background-position: 100% 0%;
 }
 

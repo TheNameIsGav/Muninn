@@ -240,7 +240,7 @@ app.get('/api/view_game/:id', async (request, response) => {
 
 //Search for a game with 'search_query' and return the json string of that game - used for displaying the game after a search
 app.get('/api/search_game/:search_query', async (request, response) => {
-
+  console.log("hit backend")
   //Original Author: Gabriel
   var search = request.params.search_query.replace("_", " ");
   search = escapeRegExp(search)
