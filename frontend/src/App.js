@@ -1,9 +1,6 @@
 import * as React from "react";
 import { Routes, Route, Link } from "react-router-dom";
 import "./App.css";
-import Navbar from './components/Navbar/Navbar';
-import LoginForm from './components/Login/Login';
-import Searchbar from './components/Searchbar/Searchbar';
 import CreateAccount from "./components/CreateAccount/accCreate";
 
 
@@ -13,7 +10,6 @@ function App(){
             <Routes>
                 <Route path="/" element={<CreateAccount />} />
                 <Route path="about" element={<About />} />
-                <Route path="homepage" element={<Navbar />} />
             </Routes>
         </div>
     )

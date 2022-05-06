@@ -1,34 +1,30 @@
-import React, { Component } from 'react';
-import { Navigate, useNavigate } from "react-router-dom";
+import React , { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import './accCreate.css'
 
-class CreateAccount extends Component {
-    constructor(props) {
-        super(props);
+function CreateAccount() {
 
-        this.submitHandler = this.submitHandler.bind(this)
-    }
+    const [user, setUser] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [passwordVerify, setPasswordVerify] = useState("");
+    const [redirect, setRedirect] = useState(null);
 
-    state = {
-        username: "",
-        email: "",
-        password: "",
-        passwordVerify: "",
-        hasSubmitted: false,
-        redirect: null
-    }
+    let navigate = useNavigate();
 
-    submitHandler = (e) => {
+
+
+    const submitHandler = (e) => {
         e.preventDefault();
 
-        if(this.state.password !== this.state.passwordVerify){
+        if(password !== passwordVerify){
             alert("Passwords do not match");
-            this.setState({password : ""})
-            this.setState({passwordVerify: ""})
+            setPassword("")
+            setPasswordVerify("");
             return;
         }
 
-        var postData = this.state
+        var postData = {username: user, email: email, password: password}
         const requestOptions = {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
@@ -41,42 +37,35 @@ class CreateAccount extends Component {
                     alert("Username or email already exists in the database, please login")
                     return;
                 } else {
-                    alert("Account created successfully!")
-                    this.setState({hasSubmitted: true});
-                    this.setState({redirect: '/about'})
+                    setRedirect('/about')
+                    navigate('/about', {replace: true})
                 }
             }
         )
     }
 
-    render() {
-        if(this.state.redirect) {
-            console.log("Navigating")
-            Navigate(this.state.redirect)
-        }
-        return (                    
-            <div className='form'>
-                <form onSubmit={this.submitHandler}>
-                    <div className="form-inner">
-                        <h2> Create Account </h2>
-                        <div className="form-group">
-                            <input type="text" placeholder="Username" name="name" id="name"  value={this.state.username} onChange={evt => {this.setState({username: evt.target.value})}}/>
-                        </div>
-                        <div className="form-group">
-                            <input type="email" placeholder="Email" name="email" id="email" value={this.state.email} onChange={evt => {this.setState({email: evt.target.value})}}/>
-                        </div>
-                        <div className="form-group">
-                            <input type="password" placeholder="Password" name="password" id="password" value={this.state.password} onChange={evt => {this.setState({password: evt.target.value})}}/>
-                        </div>
-                        <div className='form-group'>
-                            <input type="password" placeholder='Verify Password' name='password' id='password' value={this.state.passwordVerify} onChange={evt => {this.setState({passwordVerify: evt.target.value})}}/>
-                        </div>
-                        <input type="submit" value="CREATE ACCOUNT"/>
+    return (                    
+        <div className='form'>
+            <form onSubmit={submitHandler}>
+                <div className="form-inner">
+                    <h2> Create Account </h2>
+                    <div className="form-group">
+                        <input type="text" placeholder="Username" name="name" id="name"  value={user} onChange={evt => {setUser(evt.target.value)}}/>
                     </div>
-                </form>
-            </div>
-        )
-    }
+                    <div className="form-group">
+                        <input type="email" placeholder="Email" name="email" id="email" value={email} onChange={evt => {setEmail(evt.target.value)}}/>
+                    </div>
+                    <div className="form-group">
+                        <input type="password" placeholder="Password" name="password" id="password" value={password} onChange={evt => {setPassword(evt.target.value)}}/>
+                    </div>
+                    <div className='form-group'>
+                        <input type="password" placeholder='Verify Password' name='password' id='password' value={passwordVerify} onChange={evt => {setPasswordVerify(evt.target.value)}}/>
+                    </div>
+                    <input type="submit" value="CREATE ACCOUNT"/>
+                </div>
+            </form>
+        </div>
+    )
 }
 
 export default CreateAccount
