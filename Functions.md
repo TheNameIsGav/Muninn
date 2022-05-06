@@ -1,6 +1,6 @@
 # List of Muninn Functions
 
-The following is a list of functions used in Muninn and what they do. Muninn is death.
+The following is a list of functions used in Muninn and what they do. Functions can be found in `server.js`. Muninn is death.
 
 ## Add Game
 `add_game` adds a user-defined game to the games database.
