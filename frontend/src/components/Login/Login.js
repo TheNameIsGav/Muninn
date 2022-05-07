@@ -56,7 +56,6 @@ function LoginForm(props) {
     return(
         <>
         <div id='buttons'>
-            <button id='login' onClick={accountCreation}>Create Account</button>
         </div>
         <div className='form'>
             <form onSubmit={submitHandler}>
@@ -72,6 +71,7 @@ function LoginForm(props) {
                         <input type="password" placeholder="Password" name="password" id="password" onChange={e => setDetails({...details, password: e.target.value})} value={details.password}/>
                     </div>
                     <input type="submit" value="LOGIN"/>
+                    <button id='login' className="create_button" onClick={accountCreation}>Create Account</button>
                 </div>
             </form>
         </div>

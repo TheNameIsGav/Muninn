@@ -103,3 +103,38 @@ input, button {
     background-position: 100% 0%;
 }
 
+.login_button {
+    display: inline-block; 
+    padding: 10px 15px;
+    border-radius: 8px; 
+    background-image: linear-gradient(to right, #191027 50%, #13193e 50%, #6ca961);
+    background-size: 200%; 
+    background-position: 0%; 
+    transition: 0.4s;
+    color: #FFF;
+    font-weight: 700;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.login_button:hover {
+    background-position: 100% 0%;
+}
+
+.create_button {
+    display: inline-block; 
+    padding: 10px 15px;
+    border-radius: 8px; 
+    background-image: linear-gradient(to right, #191027 50%, #13193e 50%, #6ca961);
+    background-size: 200%; 
+    background-position: 0%; 
+    transition: 0.4s;
+    color: #FFF;
+    font-weight: 700;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.create_button:hover {
+    background-position: 100% 0%;
+}

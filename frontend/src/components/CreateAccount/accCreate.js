@@ -66,7 +66,6 @@ function CreateAccount() {
     return (                  
         <>
         <div id='buttons'>
-            <button id='login' onClick={loginRedirect}>Login</button>
         </div>
         <div className='form'>
             <form onSubmit={submitHandler}>
@@ -85,6 +84,7 @@ function CreateAccount() {
                         <input type="password" placeholder='Verify Password' name='password2' id='password2' value={passwordVerify} onChange={evt => {setPasswordVerify(evt.target.value)}}/>
                     </div>
                     <input type="submit" value="CREATE ACCOUNT"/>
+                    <button id='login' onClick={loginRedirect} className="login_button">Login</button>
                 </div>
             </form>
         </div>
