@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import './Login.css'
+import {useLocalStorage} from '../useLocalStorage/useLocalStorage'
 
 function LoginForm(props) {
 
     let navigate = useNavigate();
     const [details, setDetails] = useState({ name: "", password: "", email: ""})
+    const [userID, setUserID] = useLocalStorage("userID", "");
 
     const submitHandler = e => {
         e.preventDefault();
@@ -25,6 +27,7 @@ function LoginForm(props) {
                 } else if(text === "Password mismatch") {
                     alert("Password mismatch")
                 } else {
+                    setUserID(text.substring(1, text.length-1))
                     fetchUserAccount(e, text)
                 }
         })

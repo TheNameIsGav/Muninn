@@ -3,9 +3,11 @@ import { MenuItems } from './MenuItems'
 import { useLocation, useNavigate } from 'react-router-dom'
 import './Navbar.css'
 import './DisplayGame.css'
+import {useLocalStorage } from '../useLocalStorage/useLocalStorage'
 
-function Navbar() {
+function Navbar(props) {
 
+    const [userID, setUserID] = useLocalStorage("userID", "");
     const location = useLocation();    
 
     const [id, setID] = useState(0)
@@ -63,6 +65,50 @@ function Navbar() {
         });
     }
 
+    const add_to_lib = () => {
+
+        
+        var postData = {userID: userID, gameID: id}
+
+        const requestOptions = {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(postData)
+        }
+
+        fetch('/api/add_game_to_library', requestOptions).then(
+            res => res.text()).then(text => {
+                if(text === "Error saving user in adding game to libary"){
+                    alert("error adding game to library")
+                } else {
+                    alert("Game added to user library")
+                }
+        });
+    }
+
+    const add_to_wish = () => {
+
+        
+        var postData = {userID: userID, gameID: id}
+
+        const requestOptions = {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(postData)
+        }
+
+        fetch('/api/add_game_to_wishlist', requestOptions).then(
+            res => res.text()).then(text => {
+                if(text === "Error saving user in adding game to wishlist"){
+                    alert("error adding game to wishlist")
+                } else {
+                    alert("Game added to user wishlist")
+                }
+        });
+    }
+
+
+
     return(
         <>
         <div>
@@ -89,8 +135,8 @@ function Navbar() {
         <div className = "GameInformation">
             <>
             <nav>
-                <button className='button big-btn'> Add to Wishlist</button>
-                <button className='button big-btn'> Add to Library </button>
+                <button className='button big-btn' onClick={add_to_wish}> Add to Wishlist</button>
+                <button className='button big-btn' onClick={add_to_lib} > Add to Library </button>
             </nav>
             <img src= {image} id="image" className="image"/>
             <p id = "game_title" className="gameTitle">{title}</p>

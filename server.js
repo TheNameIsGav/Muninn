@@ -311,6 +311,25 @@ app.post('/api/add_game_to_library', async (req, res) => {
 
 });
 
+//repurposed add_game_to_library to add game to wishlist
+app.post('/api/add_game_to_wishlist', async (req, res) => {
+  //Original Author: Gabriel
+  const {userID, gameID} = req.body;
+  var user = await User.findById(userID);
+
+  user.wishlist.push(gameID)
+
+  user.save(function (err, user) {
+    if(err) {
+      console.log("Error saving user in adding game to wishlist")
+      res.end().status(401);
+    } else {
+      console.log("Updated user's wishlist")
+      res.end().status(201)
+    }
+  });
+
+});
 
 //gets user by user id and populates different fields to return all user information
 app.get('/api/display_user/:id', async(request, response) => {
