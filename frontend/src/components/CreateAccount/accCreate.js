@@ -1,6 +1,7 @@
 import React , { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import './accCreate.css'
+import { useLocalStorage } from '../useLocalStorage/useLocalStorage';
 
 function CreateAccount() {
 
@@ -8,6 +9,8 @@ function CreateAccount() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [passwordVerify, setPasswordVerify] = useState("");
+    const [userID, setUserID] = useLocalStorage("userID", "");
+
 
     let navigate = useNavigate();
 
@@ -38,6 +41,7 @@ function CreateAccount() {
                     return;
                 } else {
                     var modText = text.substring(1, text.length-1)
+                    setUserID(modText)
                     continueRedirect(e, modText)
                 }
             }
@@ -49,6 +53,7 @@ function CreateAccount() {
         fetch('/api/display_user/' + text).then(
             res => res.text()).then(text => {
                 try {
+
                     const userVal = JSON.parse(text)
                     console.log(userVal)
                     navigate('/profile', {replace: true, state:{userVal}})
