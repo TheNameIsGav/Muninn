@@ -5,6 +5,9 @@
     justify-content: flex-end;
     align-items: center;
     font-size: 1.2rem;
+    position: fixed; /* Set the navbar to fixed position */
+    top: 0; /* Position the navbar at the top of the page */
+    width: 100%; /* Full width */
 }
 
 .NavbarItems input[type=text] {
@@ -62,6 +65,8 @@
 .menu-icon {
     display: none;
 }
+
+
 
 
 /* for the searchbar */
