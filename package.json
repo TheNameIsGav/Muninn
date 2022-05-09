@@ -1,32 +1,35 @@
 {
-
-  "scripts": {
-
-    "server": "node server.js",
-
-    "database": "node Database/database.js",
-
-    "start": "nodemon server.js"
-
+  "main": "server.js",
+  "engines": {
+    "npm": "8.5.0",
+    "node": "16.14.2"
   },
-
+  "scripts": {
+    "server": "nodemon server.js",
+    "client": "cd frontend && npm run start",
+    "fullstack": "concurrently \"npm run client\" \"npm run server\" ",
+    "install": "cd frontend && npm install",
+    "heroku-postbuild": "npm install && cd frontend && npm install && npm run build",
+    "start": "node server.js"
+  },
   "dependencies": {
-
     "@actions/core": "^1.6.0",
-
+    "axios": "^0.26.1",
+    "bcrypt": "^5.0.1",
+    "body-parser": "^1.20.0",
+    "bson": "^4.6.3",
+    "concurrently": "^7.1.0",
+    "cors": "^2.8.5",
     "dotenv": "^16.0.0",
-
-    "ejs": "^3.0.2",
-
     "express": "^4.17.3",
-
-    "mongodb": "^4.4.1",
-
-    "mongoose": "^6.2.11",
-
-    "nodemon": "^2.0.15"
-
+    "mongodb": "^4.5.0",
+    "mongoose": "^6.3.1",
+    "multer": "^1.4.4",
+    "nodemon": "^2.0.15",
+    "password-generator": "^2.3.2",
+    "path": "^0.12.7",
+    "react-login-modal": "^1.2.1",
+    "react-router-dom": "^5.3.1",
+    "request": "^2.88.2"
   }
-
 }
-
