@@ -1,89 +1,98 @@
+.GameInformation {
+  flex-grow: 2;
+  align-self: center;
+  margin-top: 100px;
+}
+
 .GameInformation .image {
-    margin-left:2%;
-    float:left; 
-    height:50%;
-    width:50%;	
-    padding: 10px;
+  object-fit: contain;
+  max-height: 700px;
+  max-width: 700px;
+  margin-left: 2%;
+  float: left;
+  height: 50%;
+  width: 50%;
+  padding: 10px;
 }
 
 .gameTitle {
-    font-size: 40px;
-    border-top: 10px;
+  font-size: 40px;
+  border-top: 10px;
 }
 
-.gameID{
-    padding-bottom: 20px;
-    color: grey;
+.gameID {
+  padding-bottom: 20px;
+  color: grey;
 }
 
 .checked {
-    color: orange;
+  color: orange;
 }
 
 .button {
-    margin-left:2%;
-    border-left: 10px;
-    background-color: #88b7c4;
-    border: none;
-    color: white;
-    padding: 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    border-radius: 12px;
+  margin-left: 2%;
+  border-left: 10px;
+  background-color: #88b7c4;
+  border: none;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  border-radius: 12px;
 }
-  
+
 .button:hover {
-    background-color: #19702295;
-    border: none;
-    color: white;
-    padding: 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    border-radius: 12px;
-    transition: 0.4s;
+  background-color: #19702295;
+  border: none;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  border-radius: 12px;
+  transition: 0.4s;
 }
 
 .big-btn {
-    width: 130px;
-    height: 70px;
+  width: 130px;
+  height: 70px;
 }
 
 .medium-btn {
-    width: 140px;
-    height: 50px;
-    background-color: #a6c798;
-    text-align: center;
-    font-size: 14px;
+  width: 140px;
+  height: 50px;
+  background-color: #a6c798;
+  text-align: center;
+  font-size: 14px;
 }
 
 .medium-btn:hover {
-    width: 140px;
-    height: 50px;
-    background-color: #ca9e4595;
-    text-align: center;
-    font-size: 18px;
+  width: 140px;
+  height: 50px;
+  background-color: #ca9e4595;
+  text-align: center;
+  font-size: 18px;
 }
 
 .tag .medium-btn {
-    width: 70px;
-    height: 30px;
+  width: 70px;
+  height: 30px;
 }
 
 .tagTitle {
-    padding-top: 20px;
-    padding-bottom: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 .boxed {
-    border: 1px solid green ;
-    overflow: hidden;
-    padding-right: 5px;
-    border-radius: 10px;
-    line-height:1.5em;
+  border: 1px solid green;
+  overflow: hidden;
+  padding-right: 5px;
+  border-radius: 10px;
+  line-height: 1.5em;
 }
