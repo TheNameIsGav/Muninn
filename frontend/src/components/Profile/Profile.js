@@ -26,7 +26,7 @@ function Profile() {
           navigate("/search", { replace: true, state: { game } });
         } catch (e) {
           //setInput("")
-          alert("No game found");
+          alert("No game found!");
         }
       });
   };
